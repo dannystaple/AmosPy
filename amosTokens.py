@@ -53,6 +53,11 @@ def readProcedure(byteStream):
         bytesRead += bytesToEnd
     return bytesRead, {'bytesToEnd': bytesToEnd, 'encSeed': (encSeed, encSeed2), 'flags': flags}
 
+def readExtension(byteStream):
+    bytesRead = 0
+    extNo, unused, extToken = struct.unpack('>2bH', byteStream.read(4))
+    return 6, (extNo, extToken)
+
 #Given majority have no extra, perhaps simply having a tuple of length 1 only means the same?
 token_map = {
     0x0000: (None,),
@@ -66,7 +71,7 @@ token_map = {
     0x0036: ('HexVal', readVal),
     0x003E: ('DecVal', readVal),
     0x0046: ('Float',),
-    0x004E: ('Extension',),
+    0x004E: ('Extension',readExtension),
     0x005c: (',',),
     0x0054: (';',),#Statement semicolon
     0x0064: (';',),#Print/input semicolon
@@ -100,6 +105,7 @@ token_map = {
     0x0376: ('Procedure', readProcedure),
     0x0386: ('Proc',),
     0x0390: ('End Proc',),
+    0x03aa: ('Global',),
     0x03b6: ('End',),
     0x0404: ('Data', unknownExtra),
     0x040e: ('Read',),
@@ -173,6 +179,10 @@ token_map = {
     0x14b2: ('Shade On',),
     0x1484: ('Under Off',),
     0x1494: ('Under On',),
+    0x151e: ('Cup',),
+    0x1528: ('CDown',),
+    0x1540: ('CRight',),
+    0x1534: ('CLeft',),
     0x157c: ('CMove',),
     0x16e2: ('Mouse Key',),
     0x1e32: ('Mouse Click',),
@@ -181,6 +191,7 @@ token_map = {
     0xff66: ('!=',),
     0xffc0: ('+',),#TkEg O22
     0xffe2: ('*',),#TkM O00
+    0xffec: ('/',),
     0xffa2: ('=',),#TkEg o20
     0xffac: ('<',),
     0xffb6: ('>',),#TkEg o20
