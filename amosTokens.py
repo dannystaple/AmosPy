@@ -83,7 +83,7 @@ token_map = {
     0x0286: ('Loop', None),
     0x02b2: ('Gosub', None),
     0x02BE: ('If', unknownExtra),
-    0x02c6: ('Add', unknownExtra),#Could be then,- or break. can we break with label or level?
+    0x02c6: ('Then', None),
     0x02D0: ('Else', unknownExtra),
     0x02da: ('EndIf', None),
     0x0290: ('Exit If', None),
