@@ -127,26 +127,36 @@ token_map = {
     0x064A: ('Rem', readRem),
     0x0652: ('Rem', readRem),
     0x0658: ('Sort',),
+    0x0662: ('Match',),
     0x0670: ('Edit',), #Returns to the editor
     0x067a: ('Direct',),
     0x0686: ('Rnd',),
+    0x06aa: ('Abs',),
     0x09ea: ('InitScreen',),
+    0x0a18: ('Colour Back',),
+    0x0bae: ('Clear',),
     0x0c52: ('X Text',),
     0x0c60: ('Y Text',),
     0x0cfc: ('Palette',),
     0x0d0a: ('Border',),
+    0x0d1c: ('Colour',),
     0x0e3c: ('Plot',),
+    0x0e56: ('Point',),
     0x0e74: ('Line',),
     0x0e86: ('Ellipse',),#Drawing an ellipse
     0x0e9a: ('Circle',),
     0x0eac: ('Polyline to',),
+    0x0eba: ('Polygon',),
     0x0ec8: ('Fill Box',),#Drawing a box
     0x0ed8: ('Box',),
     0x0ee8: ('Paint',),
+    0x0f04: ('Gr Locate',),
     0x0f4a: ('Text',),
+    0x1022: ('Set Pattern',),
     0x1034: ('Set Line',),
     0x1044: ('Ink',),#Gr Ink
     0x1066: ('Gr Writing',),
+    0x1078: ('Clip',),
     0x129e: ('Sleep',),
     0x1378: ('Locate',),
     0x13ac: ('Pen$',),
@@ -168,12 +178,13 @@ token_map = {
     0x1e32: ('Mouse Click',),
     0xff4c: ('Or',),
     0xff58: ('And',),
+    0xff66: ('!=',),
     0xffc0: ('+',),#TkEg O22
     0xffe2: ('*',),#TkM O00
     0xffa2: ('=',),#TkEg o20
     0xffac: ('<',),
     0xffb6: ('>',),#TkEg o20
     0xffca: ('-',), #Unary negation or both?
-    0x0bae: ('Clear',),
+    0xffd4: ('Mod',),
     }
 
