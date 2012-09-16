@@ -60,6 +60,8 @@ def tokenToStr(tokenName, tokenData):
             output = '"%s"' % tokenData
         elif tokenName == "Variable":
             output = tokenData
+        elif tokenName == 'Label':
+            output = "Label %s:" % tokenData
         else:
             output += tokenName
             if tokenData is not None:
