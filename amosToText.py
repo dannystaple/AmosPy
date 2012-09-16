@@ -4,6 +4,11 @@ import sys
 from amosTokens import token_map
 __author__ = 'stapled'
 
+
+def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
+    return ((num == 0) and  "0" ) or ( baseN(num // b, b).lstrip("0") + numerals[num % b])
+
+
 def readHeader(byteStream):
     version = struct.unpack('16s', byteStream.read(16))[0]
     nBytes = struct.unpack('>I', byteStream.read(4))[0]
@@ -49,6 +54,8 @@ def tokenToStr(tokenName, tokenData):
             output = "%d" % tokenData
         elif tokenName == 'HexVal':
             output = "0x%x" % tokenData
+        elif tokenName == 'BinVal':
+            output = baseN(tokenData, 2)
         elif tokenName == "Dbl Str":
             output = '"%s"' % tokenData
         elif tokenName == "Variable":
