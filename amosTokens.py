@@ -79,6 +79,8 @@ token_map = {
     0x0094: ('To',), #For n=blah TO blah
     0x00f2: ('Inkey$',),
     0x00fe: ('Repeat$',),
+    0x010e: ('Zone$',),
+    0x011c: ('Border$',),
     0x019c: ('Every On',),
     0x01dc: ('Asc',),
     0x023C: ('For', unknownExtra),
@@ -190,6 +192,8 @@ token_map = {
     0x158a: ('Cline',),
     0x15ba: ('Set Tab',),
     0x15c8: ('Set Curs',),
+    0x1632: ('Reserve Zone',),
+    0x1668: ('Set Zone',),
     0x16e2: ('Mouse Key',),
     0x1e32: ('Mouse Click',),
     0xff4c: ('Or',),
