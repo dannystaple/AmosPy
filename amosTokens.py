@@ -54,7 +54,6 @@ def readProcedure(byteStream):
     return bytesRead, {'bytesToEnd': bytesToEnd, 'encSeed': (encSeed, encSeed2), 'flags': flags}
 
 def readExtension(byteStream):
-    bytesRead = 0
     extNo, unused, extToken = struct.unpack('>2bH', byteStream.read(4))
     return 6, (extNo, extToken)
 
@@ -79,6 +78,7 @@ token_map = {
     0x007c: (')',),
     0x0094: ('To',), #For n=blah TO blah
     0x00f2: ('Inkey$',),
+    0x00fe: ('Repeat$',),
     0x019c: ('Every On',),
     0x01dc: ('Asc',),
     0x023C: ('For', unknownExtra),
@@ -129,6 +129,7 @@ token_map = {
     0x05a4: ('Val',),
     0x05e4: ('Instr$',),
     0x05da: ('Len',),
+    0x0600: ('Tab$',),
     0x0640: ('Dim',),
     0x064A: ('Rem', readRem),
     0x0652: ('Rem', readRem),
@@ -163,15 +164,17 @@ token_map = {
     0x1044: ('Ink',),#Gr Ink
     0x1066: ('Gr Writing',),
     0x1078: ('Clip',),
+    0x1262: ('Scancode',),
+    0x1280: ('Clear Key',),
     0x129e: ('Sleep',),
     0x1378: ('Locate',),
+    0x139c: ('Curs Pen',),
     0x13ac: ('Pen$',),
     0x13b8: ('Paper$',),
     0x13c6: ('At',),
     0x13d2: ('Paper',),
     0x13dc: ('Pen',), #Note - 13d2/13da may be reversed.
-    0x13e8: ('Print',), #Why have I found 2 prints? - in usage, this one is used where there is an expression,
-    # the other is used only with consts...
+    0x13e8: ('Center',),
     0x1408: ('Writing',),
     0x1462: ('Inverse Off',),
     0x1474: ('Inverse On',),
@@ -184,6 +187,9 @@ token_map = {
     0x1540: ('CRight',),
     0x1534: ('CLeft',),
     0x157c: ('CMove',),
+    0x158a: ('Cline',),
+    0x15ba: ('Set Tab',),
+    0x15c8: ('Set Curs',),
     0x16e2: ('Mouse Key',),
     0x1e32: ('Mouse Click',),
     0xff4c: ('Or',),
