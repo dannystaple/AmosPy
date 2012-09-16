@@ -67,7 +67,8 @@ token_map = {
     0x0046: ('Float', None),
     0x004E: ('Extension', None),
     0x005c: (',', None),
-    0x0054: (';', None),
+    0x0054: (';', None),#Statement semicolon
+    0x0064: (';', None),#Print/input semicolon
     0x0074: ('(', None),
     0x007c: (')', None),
     0x0094: ('To', None), #For n=blah TO blah
@@ -81,6 +82,7 @@ token_map = {
     0x0274: ('Wend', None),
     0x027E: ('Do', unknownExtra),
     0x0286: ('Loop', None),
+    0x02a8: ('Goto', None),
     0x02b2: ('Gosub', None),
     0x02BE: ('If', unknownExtra),
     0x02c6: ('Then', None),
@@ -92,6 +94,7 @@ token_map = {
     0x034a: ('Every', None),
     0x0356: ('Step', None),
     0x0360: ('Return', None),
+    0x036c: ('Pop', None),
     0x0376: ('Procedure', readProcedure),
     0x0386: ('Proc', None),
     0x0390: ('End Proc', None),
@@ -103,6 +106,7 @@ token_map = {
     0x044e: ('Dec', None),
     0x0458: ('Add', None),
     0x0476: ('Print', None),
+    0x04d0: ('Input', None),
     0x050e: ('Mid$', None),
     0x0528: ('Left$', None),
     0x0536: ('Right$', None),
@@ -125,16 +129,17 @@ token_map = {
     0x0c60: ('Y Text', None),
     0x0cfc: ('Palette', None),
     0x0d0a: ('Border', None),
-    0x0e9a: ('Circle', None),
-    0x0ec8: ('Fill Box', None),#Drawing a box
-    0x0ed8: ('Box', None),
+    0x0e3c: ('Plot', None),
     0x0e74: ('Line', None),
     0x0e86: ('Ellipse', None),#Drawing an ellipse
+    0x0e9a: ('Circle', None),
     0x0eac: ('Polyline to', None),
+    0x0ec8: ('Fill Box', None),#Drawing a box
+    0x0ed8: ('Box', None),
     0x0ee8: ('Paint', None),
     0x0f4a: ('Text', None),
     0x1034: ('Set Line', None),
-    0x1044: ('Pen Color', None),##?
+    0x1044: ('Ink', None),#Gr Ink
     0x1066: ('Gr Writing', None),
     0x129e: ('Sleep', None),
     0x1378: ('Locate', None),
@@ -155,6 +160,7 @@ token_map = {
     0x157c: ('CMove', None),
     0x16e2: ('Mouse Key', None),
     0x1e32: ('Mouse Click', None),
+    0xff4c: ('Or', None),
     0xff58: ('And', None),
     0xffc0: ('+', None),#TkEg O22
     0xffe2: ('*', None),#TkM O00
