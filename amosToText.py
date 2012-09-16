@@ -18,14 +18,14 @@ def readHeader(byteStream):
 def readToken(byteStream):
     token = struct.unpack('>H', byteStream.read(2))[0]
     bytesRead = 2
+    tokenData = None
     try:
         tokenInfo = token_map[token]
-        if tokenInfo[1]:
+        if len(tokenInfo) > 1 and tokenInfo[1]:
             inBytesRead, tokenData = tokenInfo[1](byteStream)
             bytesRead += inBytesRead
-        else:
-            tokenData = None
         tokenName = tokenInfo[0]
+
     except KeyError:
         tokenName = "[Unknown token 0x%04x]" % token
         tokenData = None
