@@ -65,8 +65,8 @@ token_map = {
     0x002E: ('Sgl Str', readString),
     0x0036: ('HexVal', readVal),
     0x003E: ('DecVal', readVal),
-    0x0046: ('Float', None),
-    0x004E: ('Extension', None),
+    0x0046: ('Float',),
+    0x004E: ('Extension',),
     0x005c: (',',),
     0x0054: (';',),#Statement semicolon
     0x0064: (';',),#Print/input semicolon
@@ -111,68 +111,69 @@ token_map = {
     0x0476: ('Print',),
     0x04d0: ('Input',),
     0x050e: ('Mid$',),
-    0x0528: ('Left$', None),
-    0x0536: ('Right$', None),
-    0x0546: ('Flip$', None),
-    0x0552: ('Chr$', None),
-    0x055e: ('Space$', None),
-    0x056c: ('String$', None),
-    0x057c: ('Upper$', None),
-    0x058a: ('Lower$', None),
-    0x0598: ('Str$', None),
-    0x05a4: ('Val', None),
-    0x05e4: ('Instr$', None),
-    0x05da: ('Len', None),
-    0x0640: ('Dim', None),
+    0x0528: ('Left$',),
+    0x0536: ('Right$',),
+    0x0546: ('Flip$',),
+    0x0552: ('Chr$',),
+    0x055e: ('Space$',),
+    0x056c: ('String$',),
+    0x057c: ('Upper$',),
+    0x058a: ('Lower$',),
+    0x0598: ('Str$',),
+    0x05a4: ('Val',),
+    0x05e4: ('Instr$',),
+    0x05da: ('Len',),
+    0x0640: ('Dim',),
     0x064A: ('Rem', readRem),
     0x0652: ('Rem', readRem),
-    0x0658: ('Sort', None),
-    0x0670: ('Edit', None), #Returns to the editor
-    0x067a: ('Direct', None),
-    0x0686: ('Rnd', None),
-    0x09ea: ('InitScreen', None),
-    0x0c52: ('X Text', None),
-    0x0c60: ('Y Text', None),
-    0x0cfc: ('Palette', None),
-    0x0d0a: ('Border', None),
-    0x0e3c: ('Plot', None),
-    0x0e74: ('Line', None),
-    0x0e86: ('Ellipse', None),#Drawing an ellipse
-    0x0e9a: ('Circle', None),
-    0x0eac: ('Polyline to', None),
-    0x0ec8: ('Fill Box', None),#Drawing a box
-    0x0ed8: ('Box', None),
-    0x0ee8: ('Paint', None),
-    0x0f4a: ('Text', None),
-    0x1034: ('Set Line', None),
-    0x1044: ('Ink', None),#Gr Ink
-    0x1066: ('Gr Writing', None),
-    0x129e: ('Sleep', None),
-    0x1378: ('Locate', None),
-    0x13ac: ('Pen$', None),
-    0x13b8: ('Paper$', None),
-    0x13c6: ('At', None),
-    0x13d2: ('Paper', None),
-    0x13dc: ('Pen', None), #Note - 13d2/13da may be reversed.
-    0x13e8: ('Print', None), #Why have I found 2 prints? - in usage, this one is used where there is an expression,
-                             # the other is used only with consts...
-    0x1408: ('Writing', None),
-    0x1462: ('Inverse Off', None),
-    0x1474: ('Inverse On', None),
-    0x14a2: ('Shade Off', None),
-    0x14b2: ('Shade On', None),
-    0x1484: ('Under Off', None),
-    0x1494: ('Under On', None),
-    0x157c: ('CMove', None),
-    0x16e2: ('Mouse Key', None),
-    0x1e32: ('Mouse Click', None),
-    0xff4c: ('Or', None),
-    0xff58: ('And', None),
-    0xffc0: ('+', None),#TkEg O22
-    0xffe2: ('*', None),#TkM O00
-    0xffa2: ('=', None),#TkEg o20
-    0xffac: ('<', None),
-    0xffb6: ('>', None),#TkEg o20
-    0xffca: ('-', None), #Unary negation or both?
-    0x0bae: ('Clear', None),
-}
+    0x0658: ('Sort',),
+    0x0670: ('Edit',), #Returns to the editor
+    0x067a: ('Direct',),
+    0x0686: ('Rnd',),
+    0x09ea: ('InitScreen',),
+    0x0c52: ('X Text',),
+    0x0c60: ('Y Text',),
+    0x0cfc: ('Palette',),
+    0x0d0a: ('Border',),
+    0x0e3c: ('Plot',),
+    0x0e74: ('Line',),
+    0x0e86: ('Ellipse',),#Drawing an ellipse
+    0x0e9a: ('Circle',),
+    0x0eac: ('Polyline to',),
+    0x0ec8: ('Fill Box',),#Drawing a box
+    0x0ed8: ('Box',),
+    0x0ee8: ('Paint',),
+    0x0f4a: ('Text',),
+    0x1034: ('Set Line',),
+    0x1044: ('Ink',),#Gr Ink
+    0x1066: ('Gr Writing',),
+    0x129e: ('Sleep',),
+    0x1378: ('Locate',),
+    0x13ac: ('Pen$',),
+    0x13b8: ('Paper$',),
+    0x13c6: ('At',),
+    0x13d2: ('Paper',),
+    0x13dc: ('Pen',), #Note - 13d2/13da may be reversed.
+    0x13e8: ('Print',), #Why have I found 2 prints? - in usage, this one is used where there is an expression,
+    # the other is used only with consts...
+    0x1408: ('Writing',),
+    0x1462: ('Inverse Off',),
+    0x1474: ('Inverse On',),
+    0x14a2: ('Shade Off',),
+    0x14b2: ('Shade On',),
+    0x1484: ('Under Off',),
+    0x1494: ('Under On',),
+    0x157c: ('CMove',),
+    0x16e2: ('Mouse Key',),
+    0x1e32: ('Mouse Click',),
+    0xff4c: ('Or',),
+    0xff58: ('And',),
+    0xffc0: ('+',),#TkEg O22
+    0xffe2: ('*',),#TkM O00
+    0xffa2: ('=',),#TkEg o20
+    0xffac: ('<',),
+    0xffb6: ('>',),#TkEg o20
+    0xffca: ('-',), #Unary negation or both?
+    0x0bae: ('Clear',),
+    }
+
