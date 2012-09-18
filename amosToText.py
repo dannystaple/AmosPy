@@ -3,6 +3,7 @@ import struct
 import sys
 from amosTokens import token_map
 __author__ = 'stapled'
+from extensions import extensions_table
 
 
 def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
@@ -47,21 +48,28 @@ def readTokenisedLine(byteStream):
             raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s", bytesRead, lineLength, repr(tokensRead))
     return bytesRead, indentLevel, tokensRead
 
+def extension_str(data):
+    extNo, token = data
+    if extNo in extensions_table and token in extensions_table[extNo]:
+        return extensions_table[extNo][token]
+    else:
+        return "[Extension %d : 0x%04x]" % data
+
+token_output_formats = {
+    'DecVal':   lambda data: "%d" % data,
+    'HexVal':   lambda data: "0x%x" % data,
+    'BinVal':   lambda data: baseN(data, 2),
+    'Dbl Str':  lambda data: '"%s"' % data,
+    'Variable': lambda data: data,
+    'Label':    lambda data: "Label %s:" % data,
+    'Extension':extension_str,
+}
+
 def tokenToStr(tokenName, tokenData):
     output = ''
     if tokenName:
-        if tokenName == 'DecVal':
-            output = "%d" % tokenData
-        elif tokenName == 'HexVal':
-            output = "0x%x" % tokenData
-        elif tokenName == 'BinVal':
-            output = baseN(tokenData, 2)
-        elif tokenName == "Dbl Str":
-            output = '"%s"' % tokenData
-        elif tokenName == "Variable":
-            output = tokenData
-        elif tokenName == 'Label':
-            output = "Label %s:" % tokenData
+        if tokenName in token_output_formats:
+            output = token_output_formats[tokenName](tokenData)
         else:
             output += tokenName
             if tokenData is not None:
