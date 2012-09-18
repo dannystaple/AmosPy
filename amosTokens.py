@@ -117,6 +117,7 @@ token_map = {
     0x044e: ('Dec',),
     0x0458: ('Add',),
     0x0476: ('Print',),
+    0x048e: ('Input$',),
     0x04d0: ('Input',),
     0x050e: ('Mid$',),
     0x0528: ('Left$',),
