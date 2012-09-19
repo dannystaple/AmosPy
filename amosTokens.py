@@ -17,6 +17,10 @@ def readLabelType(byteStream):
     unknown, length, flags = struct.unpack("Hbb", byteStream.read(4))
     bytesRead += 4
     name = struct.unpack("%ds" % length, byteStream.read(length))[0].rstrip("\x00")
+    if flags & 1:
+        name += "#" #Floats in amos
+    elif flags and 2:
+        name += "$"
     bytesRead += length
     return bytesRead, name
 
@@ -179,8 +183,13 @@ token_map = {
     0x1044: ('Ink',),#Gr Ink
     0x1066: ('Gr Writing',),
     0x1078: ('Clip',),
+    0x11c6: ('Key Speed',),
+    0x11d8: ('Key State',),
+    0x11e8: ('Key Shift',),
+    0x1254: ('Put Key',),
     0x1262: ('Scancode',),
     0x1280: ('Clear Key',),
+    0x1290: ('Wait Key',),
     0x129e: ('Sleep',),
     0x12da: ('Wind Open',),
     0x132a: ('Wind Save',),
@@ -216,8 +225,17 @@ token_map = {
     0x1668: ('Set Zone',),
     0x16b6: ('Scin',),
     0x16e2: ('Mouse Key',),
+    0x175a: ('Dir$',),
+    0x17a4: ('Dir',),
+    0x17b6: ('Set Dir',),
     0x17e4: ('Load Iff',),
     0x184e: ('Load',),
+    0x1864: ('Dfree',),
+    0x1870: ('Mkdir',),
+    0x1914: ('Parent',),
+    0x1920: ('Rename',),
+    0x1930: ('Kill',),
+    0x1954: ('Fsel$',),
     0x1b5c: ('Limit Bob',),
     0x1b8a: ('Set Bob',),
     0x1b9e: ('Bob',),

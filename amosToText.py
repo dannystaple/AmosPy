@@ -55,6 +55,14 @@ def extension_str(data):
     else:
         return "[Extension %d : 0x%04x]" % data
 
+
+def procedure_str(data):
+    output = 'Procedure'
+    if data['flags']:
+        output += ' <%d>' % data['flags']
+    return output
+
+
 token_output_formats = {
     'DecVal':   lambda data: "%d" % data,
     'HexVal':   lambda data: "0x%x" % data,
@@ -63,6 +71,7 @@ token_output_formats = {
     'Variable': lambda data: data,
     'Label':    lambda data: "Label %s:" % data,
     'Extension':extension_str,
+    'Procedure':procedure_str,
 }
 
 def tokenToStr(tokenName, tokenData):
