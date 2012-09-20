@@ -69,6 +69,7 @@ token_output_formats = {
     'BinVal':   lambda data: baseN(data, 2),
     'Dbl Str':  lambda data: '"%s"' % data,
     'Variable': lambda data: data,
+    'Goto Label Ref': lambda data: data,
     'Label':    lambda data: "Label %s:" % data,
     'Extension':extension_str,
     'Procedure':procedure_str,

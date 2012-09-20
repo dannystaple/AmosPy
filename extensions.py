@@ -4,6 +4,10 @@ extensions_table = {
         0x0026: 'Spack',
         0x0048: 'Unpack',
     },
+    3: {
+        0x0006: 'Request On',
+        0x0028: 'Request Wb',
+    },
     6: {
         0x0006: 'Serial Open',
         0x002c: 'Serial Close',
