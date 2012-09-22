@@ -45,7 +45,7 @@ def readTokenisedLine(byteStream):
         bytesRead += inBytesRead
         tokensRead.append((tokenName, tokenData))
         if bytesRead > lineLength:
-            raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s", bytesRead, lineLength, repr(tokensRead))
+            raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
     return bytesRead, indentLevel, tokensRead
 
 def extension_str(data):
@@ -59,7 +59,7 @@ def extension_str(data):
 def procedure_str(data):
     output = 'Procedure'
     if data['flags']:
-        output += ' <%d>' % data['flags']
+        output += ' <%s>' % repr(data['flags'])
     return output
 
 

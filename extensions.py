@@ -7,6 +7,7 @@ extensions_table = {
         0x0074: 'Boom',
         0x007e: 'Shoot',
         0x0118: 'Bell',
+        0X0144: 'Play',
         0x0196: 'Mvolume',
         0x01a4: 'Volume',
         0x01ca: 'Led On',
