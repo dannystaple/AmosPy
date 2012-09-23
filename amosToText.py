@@ -15,38 +15,41 @@ def readHeader(byteStream):
     nBytes = struct.unpack('>I', byteStream.read(4))[0]
     return {'version':version, 'length':nBytes}
 
+class TokenReader(object):
+    unknown_tokens = 0
 
-def readToken(byteStream):
-    token = struct.unpack('>H', byteStream.read(2))[0]
-    bytesRead = 2
-    tokenData = None
-    try:
-        tokenInfo = token_map[token]
-        if len(tokenInfo) > 1 and tokenInfo[1]:
-            inBytesRead, tokenData = tokenInfo[1](byteStream)
-            bytesRead += inBytesRead
-        tokenName = tokenInfo[0]
-
-    except KeyError:
-        tokenName = "[Unknown token 0x%04x]" % token
+    def readToken(self, byteStream):
+        token = struct.unpack('>H', byteStream.read(2))[0]
+        bytesRead = 2
         tokenData = None
-    return bytesRead, tokenName, tokenData
+        try:
+            tokenInfo = token_map[token]
+            if len(tokenInfo) > 1 and tokenInfo[1]:
+                inBytesRead, tokenData = tokenInfo[1](byteStream)
+                bytesRead += inBytesRead
+            tokenName = tokenInfo[0]
 
-class BadTokenRead(Exception):
-    pass
+        except KeyError:
+            tokenName = "[Unknown token 0x%04x]" % token
+            self.unknown_tokens += 1
+            tokenData = None
+        return bytesRead, tokenName, tokenData
 
-def readTokenisedLine(byteStream):
-    lineLength, indentLevel = struct.unpack('BB', byteStream.read(2))
-    lineLength *= 2
-    bytesRead = 2
-    tokensRead = []
-    while bytesRead < lineLength:
-        inBytesRead, tokenName, tokenData = readToken(byteStream)
-        bytesRead += inBytesRead
-        tokensRead.append((tokenName, tokenData))
-        if bytesRead > lineLength:
-            raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
-    return bytesRead, indentLevel, tokensRead
+    class BadTokenRead(Exception):
+        pass
+
+    def readTokenisedLine(self, byteStream):
+        lineLength, indentLevel = struct.unpack('BB', byteStream.read(2))
+        lineLength *= 2
+        bytesRead = 2
+        tokensRead = []
+        while bytesRead < lineLength:
+            inBytesRead, tokenName, tokenData = self.readToken(byteStream)
+            bytesRead += inBytesRead
+            tokensRead.append((tokenName, tokenData))
+            if bytesRead > lineLength:
+                raise TokenReader.BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
+        return bytesRead, indentLevel, tokensRead
 
 def extension_str(data):
     extNo, token = data
@@ -91,16 +94,20 @@ def printLine(indentLevel, tokensRead):
     print(indentLevel * ' ', ' '.join(tokenToStr(*token) for token in tokensRead))
 
 def main():
+    tr = TokenReader()
     byteStream = open(sys.argv[1],"rb")
-
     header = readHeader(byteStream)
     print(header)
     bytesRead = 0
     while bytesRead < header['length']:
-        inBytesRead, indentLevel, tokensRead = readTokenisedLine(byteStream)
+        inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
         bytesRead += inBytesRead
         printLine(indentLevel, tokensRead)
 
     print("Code Bytes read", bytesRead, "of", header['length'])
+    if tr.unknown_tokens:
+        print("Found %d unknown tokens" % tr.unknown_tokens)
+    else:
+        print("All tokens translated")
 
 main()
