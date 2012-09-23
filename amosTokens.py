@@ -1,7 +1,9 @@
+"""Token table and code to deal with special cases."""
 import struct
 
 __author__ = 'stapled'
 def readRem(byteStream):
+    """The rem - remark/comment type tokens"""
     commentLength = struct.unpack('bb', byteStream.read(2))[1]
     bytesRead = 2
     comment = struct.unpack('%ds' % commentLength, byteStream.read(commentLength))[0].rstrip("\x00")
@@ -9,10 +11,12 @@ def readRem(byteStream):
     return bytesRead, comment
 
 def readVal(byteStream):
+    """Values - all seem to be 4 bytes long"""
     intVal = struct.unpack('>i', byteStream.read(4))[0]
     return 4, intVal
 
 def readLabelType(byteStream):
+    """Labels - for goto, variables, procedure calls etc"""
     bytesRead = 0
     unknown, length, flags = struct.unpack("Hbb", byteStream.read(4))
     bytesRead += 4
@@ -25,10 +29,12 @@ def readLabelType(byteStream):
     return bytesRead, name
 
 def unknownExtra(byteStream):
+    """Some tokens have an 'unknown' extra short. Make sure to eat them"""
     byteStream.read(2)
     return 2, None
 
 def readString(byteStream):
+    """String constants"""
     bytesRead = 0
     length = struct.unpack(">h", byteStream.read(2))[0]
     bytesRead += 2
@@ -40,6 +46,7 @@ def readString(byteStream):
     return bytesRead, data
 
 def readProcedure(byteStream):
+    """This is the procedure declaration. So far - nothing can be done for a compiled or encrypted one"""
     bytesRead = 0
     bytesToEnd, encSeed, flagsB, encSeed2 = struct.unpack(">ihbb", byteStream.read(8))
     bytesRead += 8
@@ -58,6 +65,7 @@ def readProcedure(byteStream):
     return bytesRead, {'bytesToEnd': bytesToEnd, 'encSeed': (encSeed, encSeed2), 'flags': flags}
 
 def readExtension(byteStream):
+    """An extension token. For now - look in extensions.py for their mappings"""
     extNo, unused, extToken = struct.unpack('>2bH', byteStream.read(4))
     return 6, (extNo, extToken)
 
