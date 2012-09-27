@@ -109,6 +109,7 @@ def main():
     print("Code Bytes read", bytesRead, "of", header['length'])
     if tr.unknown_tokens:
         print("Found %d unknown tokens" % tr.unknown_tokens)
+        exit(tr.unknown_tokens)
     else:
         print("All tokens translated")
 
