@@ -24,11 +24,13 @@ class TokenReader(object):
         tokenData = None
         try:
             tokenInfo = token_map[token]
-            if len(tokenInfo) > 1 and tokenInfo[1]:
-                inBytesRead, tokenData = tokenInfo[1](byteStream)
-                bytesRead += inBytesRead
-            tokenName = tokenInfo[0]
-
+            if type(tokenInfo) == str:
+                tokenName = tokenInfo
+            else:
+                if len(tokenInfo) > 1 and tokenInfo[1]:
+                    inBytesRead, tokenData = tokenInfo[1](byteStream)
+                    bytesRead += inBytesRead
+                tokenName = tokenInfo[0]
         except KeyError:
             tokenName = "[Unknown token 0x%04x]" % token
             self.unknown_tokens += 1
