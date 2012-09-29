@@ -15,6 +15,11 @@ def readHeader(byteStream):
     nBytes = struct.unpack('>I', byteStream.read(4))[0]
     return {'version':version, 'length':nBytes}
 
+
+class BadTokenRead(Exception):
+    pass
+
+
 class TokenReader(object):
     unknown_tokens = 0
 
@@ -37,9 +42,6 @@ class TokenReader(object):
             tokenData = None
         return bytesRead, tokenName, tokenData
 
-    class BadTokenRead(Exception):
-        pass
-
     def readTokenisedLine(self, byteStream):
         lineLength, indentLevel = struct.unpack('BB', byteStream.read(2))
         lineLength *= 2
@@ -50,7 +52,7 @@ class TokenReader(object):
             bytesRead += inBytesRead
             tokensRead.append((tokenName, tokenData))
             if bytesRead > lineLength:
-                raise TokenReader.BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
+                raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
         return bytesRead, indentLevel, tokensRead
 
 def extension_str(data):
@@ -92,25 +94,36 @@ def tokenToStr(tokenName, tokenData):
 
     return output
 
-def printLine(indentLevel, tokensRead):
-    print(indentLevel * ' ', ' '.join(tokenToStr(*token) for token in tokensRead))
 
-def main():
+def convert_file(filename):
+    """Output a single amos tokenised file as text"""
     tr = TokenReader()
-    byteStream = open(sys.argv[1],"rb")
+    byteStream = open(filename,"rb")
     header = readHeader(byteStream)
-    print(header)
     bytesRead = 0
+    lines = []
     while bytesRead < header['length']:
         inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
         bytesRead += inBytesRead
-        printLine(indentLevel, tokensRead)
+        lines.append((indentLevel, tokensRead))
 
-    print("Code Bytes read", bytesRead, "of", header['length'])
-    if tr.unknown_tokens:
-        print("Found %d unknown tokens" % tr.unknown_tokens)
-        exit(tr.unknown_tokens)
+    return lines, tr.unknown_tokens, bytesRead, header
+
+
+def printLine(indentLevel, tokensRead):
+    print(indentLevel * ' ', ' '.join(tokenToStr(*token) for token in tokensRead))
+
+
+def output_converted(lines, unknown_tokens, bytes_read, header):
+    print(header)
+    [printLine(indent_level, tokens_read) for indent_level, tokens_read in lines]
+    print("Code Bytes read", bytes_read, "of", header['length'])
+    if unknown_tokens:
+        print("Found %d unknown tokens" % unknown_tokens)
     else:
         print("All tokens translated")
 
-main()
+
+if __name__ == '__main__':
+    output_converted(*convert_file(sys.argv[1]))
+
