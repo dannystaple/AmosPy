@@ -71,7 +71,7 @@ def readExtension(byteStream):
 
 #Given majority have no extra, a simple string, or length 1 tuple is the default
 token_map = {
-    0x0000: None,
+    0x0000: (None,),
     0x0006: ('Variable', readLabelType),
     0x000c: ('Label', readLabelType),
     0x0012: ('Call', readLabelType),
