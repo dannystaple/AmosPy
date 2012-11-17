@@ -53,6 +53,8 @@ class TokenReader(object):
             tokensRead.append((tokenName, tokenData))
             if bytesRead > lineLength:
                 raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
+            if tokenName is None:
+                break
         return bytesRead, indentLevel, tokensRead
 
 def extension_str(data):
@@ -94,36 +96,48 @@ def tokenToStr(tokenName, tokenData):
 
     return output
 
+class Converter(object):
+    def __init__(self):
+        self.bytes_read = 0
+        self.unknown_tokens = 0
+
+    def do_file(self, filename):
+        """Convert a file into lines of text"""
+        tr = TokenReader()
+        byteStream = open(filename,"rb")
+        header = readHeader(byteStream)
+        yield header
+        self.bytes_read = 0
+        lines = []
+        while self.bytes_read < header['length']:
+            inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
+            self.bytes_read += inBytesRead
+            line = indentLevel * ' ' + ' '.join(tokenToStr(*token) for token in tokensRead)
+            yield line
+        self.unknown_tokens = tr.unknown_tokens
 
 def convert_file(filename):
-    """Output a single amos tokenised file as text"""
-    tr = TokenReader()
-    byteStream = open(filename,"rb")
-    header = readHeader(byteStream)
-    bytesRead = 0
-    lines = []
-    while bytesRead < header['length']:
-        inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
-        bytesRead += inBytesRead
-        lines.append((indentLevel, tokensRead))
+    converter = Converter()
+    items = converter.do_file(filename)
+    header = items.next()
+    lines = list(items)
+    return lines, converter.unknown_tokens, converter.bytes_read, header
 
-    return lines, tr.unknown_tokens, bytesRead, header
-
-
-def printLine(indentLevel, tokensRead):
-    print(indentLevel * ' ', ' '.join(tokenToStr(*token) for token in tokensRead))
-
-
-def output_converted(lines, unknown_tokens, bytes_read, header):
-    print(header)
-    [printLine(indent_level, tokens_read) for indent_level, tokens_read in lines]
-    print("Code Bytes read", bytes_read, "of", header['length'])
-    if unknown_tokens:
-        print("Found %d unknown tokens" % unknown_tokens)
-    else:
+def output_file(filename):
+    converter = Converter()
+    items = converter.do_file(filename)
+    header = items.next()
+    try:
+        [print(line) for line in items]
+    finally:
+        print("Code Bytes read", converter.bytes_read, "of", header['length'])
+        if converter.unknown_tokens:
+            print("Found %d unknown tokens" % converter.unknown_tokens)
+    if converter.unknown_tokens == 0 and converter.bytes_read == header['length']:
         print("All tokens translated")
 
 
+
 if __name__ == '__main__':
-    output_converted(*convert_file(sys.argv[1]))
+    output_file(sys.argv[1])
 

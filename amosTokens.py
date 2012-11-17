@@ -15,6 +15,13 @@ def readVal(byteStream):
     intVal = struct.unpack('>i', byteStream.read(4))[0]
     return 4, intVal
 
+def readFloatVal(byteStream):
+    """Read a floating point value"""
+    floatVal = struct.unpack(">f", byteStream.read(4))[0]
+    return 4, floatVal
+
+
+
 def readLabelType(byteStream):
     """Labels - for goto, variables, procedure calls etc"""
     bytesRead = 0
@@ -28,10 +35,12 @@ def readLabelType(byteStream):
     bytesRead += length
     return bytesRead, name
 
-def unknownExtra(byteStream):
-    """Some tokens have an 'unknown' extra short. Make sure to eat them"""
-    byteStream.read(2)
-    return 2, None
+def unknownSize(size):
+    """Some tokens have an 'unknown' extra bytes. Make sure to eat them"""
+    def _read(byteStream):
+        byteStream.read(size)
+        return size, None
+    return _read
 
 def readString(byteStream):
     """String constants"""
@@ -81,7 +90,7 @@ token_map = {
     0x002e: ('Sgl Str', readString),
     0x0036: ('HexVal', readVal),
     0x003e: ('DecVal', readVal),
-    0x0046: 'Float',
+    0x0046: ('Float', readFloatVal),
     0x004e: ('Extension', readExtension),
     0x0054: ':',
     0x005c: ',',
@@ -123,26 +132,26 @@ token_map = {
     0x0214: 'Doscall',
     0x0222: 'Intcall',
     0x0230: 'Freeze',
-    0x023c: ('For', unknownExtra),
+    0x023c: ('For', unknownSize(2)),
     0x0246: 'Next',
-    0x0250: ('Repeat', unknownExtra),
+    0x0250: ('Repeat', unknownSize(2)),
     0x025c: 'Until',
-    0x0268: ('While', unknownExtra),
+    0x0268: ('While', unknownSize(2)),
     0x0274: 'Wend',
-    0x027e: ('Do', unknownExtra),
+    0x027e: ('Do', unknownSize(2)),
     0x0286: 'Loop',
-    0x0290: 'Exit If',
-    0x029e: 'Exit',
+    0x0290: ('Exit If', unknownSize(4)),
+    0x029e: ('Exit', unknownSize(2)),
     0x02a8: 'Goto',
     0x02b2: 'Gosub',
-    0x02be: ('If', unknownExtra),
+    0x02be: ('If', unknownSize(2)),
     0x02c6: 'Then',
-    0x02d0: ('Else', unknownExtra),
+    0x02d0: ('Else', unknownSize(2)),
     0x02da: 'EndIf',
     0x02e6: 'On Error',
     0x02f4: 'On Break Proc',
     0x0308: 'On Menu',
-    0x0316: 'On',
+    0x0316: ('On', unknownSize(4)),
     0x031e: 'Resume Label',
     0x0330: 'Resume',
     0x033c: 'Pop Proc',
@@ -162,7 +171,7 @@ token_map = {
     0x03e2: 'Param',
     0x03ee: 'Error',
     0x03fa: 'Errn',
-    0x0404: ('Data', unknownExtra),
+    0x0404: ('Data', unknownSize(2)),
     0x040e: 'Read',
     0x0418: 'Restore',
     0x0426: 'Break Off',
