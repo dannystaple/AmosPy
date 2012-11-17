@@ -1,5 +1,6 @@
 """Try the amos example files with amosToText and see which fail"""
 import glob
+import struct
 import os
 from amosToText import convert_file, BadTokenRead
 
@@ -8,8 +9,9 @@ def try_conversion(amos_file):
     try:
         lines, unknown_tokens, bytesRead, header = convert_file(amos_file)
         return unknown_tokens
-    except BadTokenRead:
+    except (BadTokenRead, struct.error):
         return 1
+
 
 def main():
     example_root = os.path.expanduser("~/Amiga/disks/AMOSPro_Examples/Examples")
