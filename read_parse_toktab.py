@@ -36,10 +36,9 @@ def get_tokens(lines):
     lines = (line for line in lines if not line.startswith('*'))  # kill comments
     lines = (line.strip() for line in lines)  # kill rubbish around lines
     lines = (line for line in lines if line)  # kill blank lines
-    lines = [line for line in lines if not match("[A-Za-z_][A-Za-z0-9_]*:", line)]  # kill labels
+    lines = (line for line in lines if not match("[A-Za-z_][A-Za-z0-9_]*:", line))  # kill labels
     #Pair up the lines
-    il = iter(lines)
-    line_pairs = zip(il, il)
+    line_pairs = zip(lines, lines)
     # Condition the address lines
     line_pairs = [(line_pair[0].replace("FFFFF", "F"), line_pair[1], line_pair) for line_pair in line_pairs]
     line_pairs = [(line_pair[0][:4].split('+')[0], line_pair[1], line_pair[2]) for line_pair in line_pairs]
