@@ -3,6 +3,7 @@ This was to read it, parse it, and output python structures to
 represent the data required from it.
 This was a script used in the production of amosTokens.py.
 """
+from __future__ import print_function
 from re import match, search
 from amosTokens import token_map
 
@@ -47,11 +48,14 @@ def get_tokens(lines):
     non_tokens = [(address, name, orig) for address, name, orig in line_pairs if '"' not in name or "$80" not in name]
     new_pairs = [line_pair for line_pair in line_pairs if line_pair[:2] not in non_tokens]
     # Start to condition the names
-    new_pairs = [(address, name.partition("dc.b")[2].strip(), orig) for address, name, orig in new_pairs] #Clear before the dc.
+    #   Clear stuff before the dc
+    new_pairs = [(address, name.partition("dc.b")[2].strip(), orig) for address, name, orig in new_pairs]
     new_pairs = list(process_similar(new_pairs))
     new_pairs = [(address, name, orig) for address, name, orig in new_pairs if int(address, 16) not in token_map]
-    new_pairs = [( address, name.partition("$80")[0], orig) for address, name, orig in new_pairs] #split at the $80
-    new_pairs = [( address, name.replace('","', ""), orig) for address, name, orig in new_pairs] #Drop the comma in the middle of names
+    #  split at the $80
+    new_pairs = [( address, name.partition("$80")[0], orig) for address, name, orig in new_pairs]
+    #  Drop the comma in the middle of names
+    new_pairs = [( address, name.replace('","', ""), orig) for address, name, orig in new_pairs]
     #extract the name from the line
     new_pairs = [(address, search('".+"', name).group(0), orig) for address, name, orig in new_pairs]
     new_pairs = [(address, name.strip('"'), orig) for address, name, orig in new_pairs]
@@ -64,13 +68,13 @@ def convert_to_dict(new_pairs):
     new_pairs = [(int(address, 16), name) for address, name, orig in new_pairs]
     token_map.update(new_pairs)
     pair_list = [(key, token_map[key]) for key in token_map]
-    pair_list = sorted(pair_list, cmp=lambda item, other: cmp(item[0], other[0]))
+    pair_list = sorted(pair_list, key=lambda item: item[0])
     for key, value in pair_list:
         if isinstance(value, tuple):
             value = (value[0], value[1].func_name)
-            print "0x%04x: ('%s', %s)," % (key, value[0], value[1])
+            print("0x%04x: ('%s', %s)," % (key, value[0], value[1]))
         else:
-            print "0x%04x: %s," % (key, repr(value))
+            print("0x%04x: %s," % (key, repr(value)))
 
 
 if __name__ == '__main__':
