@@ -3,7 +3,8 @@ from __future__ import print_function
 import glob
 import struct
 import os
-from amosToText import convert_file, BadTokenRead
+from AmosPy.converter import Converter
+from AmosPy.token_reader import BadTokenRead
 
 
 def try_conversion(amos_file):
@@ -29,3 +30,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def convert_file(filename):
+    converter = Converter()
+    items = converter.do_file(filename)
+    header = next(items)
+    #We exhaust the iterator because the converter data is only there afterwards.
+    lines = list(items)
+    return lines, converter.unknown_tokens, converter.bytes_read, header
