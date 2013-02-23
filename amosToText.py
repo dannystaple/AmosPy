@@ -1,19 +1,22 @@
+"""Main script of this package - this will convert
+an amos tokenised file into plain text, which should be
+a representation of what you'd have seen in the Amos editor
+window."""
 from __future__ import print_function
 import struct
 import sys
 from amosTokens import token_map
-__author__ = 'stapled'
 from extensions import extensions_table
 
 
-def baseN(num,b,numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
-    return ((num == 0) and  "0" ) or ( baseN(num // b, b).lstrip("0") + numerals[num % b])
+def baseN(num, b, numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
+    return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + numerals[num % b])
 
 
 def readHeader(byteStream):
     version = struct.unpack('16s', byteStream.read(16))[0]
     nBytes = struct.unpack('>I', byteStream.read(4))[0]
-    return {'version':version, 'length':nBytes}
+    return {'version': version, 'length': nBytes}
 
 
 class BadTokenRead(Exception):
@@ -52,10 +55,12 @@ class TokenReader(object):
             bytesRead += inBytesRead
             tokensRead.append((tokenName, tokenData))
             if bytesRead > lineLength:
-                raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead, lineLength, repr(tokensRead)))
+                raise BadTokenRead("Read %d bytes, expected %d. So far: \n%s" % (bytesRead,
+                                                                                 lineLength, repr(tokensRead)))
             if tokenName is None:
                 break
         return bytesRead, indentLevel, tokensRead
+
 
 def extension_str(data):
     extNo, token = data
@@ -73,16 +78,17 @@ def procedure_str(data):
 
 
 token_output_formats = {
-    'DecVal':   lambda data: "%d" % data,
-    'HexVal':   lambda data: "0x%x" % data,
-    'BinVal':   lambda data: baseN(data, 2),
-    'Dbl Str':  lambda data: '"%s"' % data,
+    'DecVal': lambda data: "%d" % data,
+    'HexVal': lambda data: "0x%x" % data,
+    'BinVal': lambda data: baseN(data, 2),
+    'Dbl Str': lambda data: '"%s"' % data,
     'Variable': lambda data: data,
     'Goto Label Ref': lambda data: data,
-    'Label':    lambda data: "Label %s:" % data,
-    'Extension':extension_str,
-    'Procedure':procedure_str,
+    'Label': lambda data: "Label %s:" % data,
+    'Extension': extension_str,
+    'Procedure': procedure_str,
 }
+
 
 def tokenToStr(tokenName, tokenData):
     output = ''
@@ -96,6 +102,7 @@ def tokenToStr(tokenName, tokenData):
 
     return output
 
+
 class Converter(object):
     def __init__(self):
         self.bytes_read = 0
@@ -104,11 +111,10 @@ class Converter(object):
     def do_file(self, filename):
         """Convert a file into lines of text"""
         tr = TokenReader()
-        byteStream = open(filename,"rb")
+        byteStream = open(filename, "rb")
         header = readHeader(byteStream)
         yield header
         self.bytes_read = 0
-        lines = []
         while self.bytes_read < header['length']:
             inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
             self.bytes_read += inBytesRead
@@ -116,12 +122,14 @@ class Converter(object):
             yield line
         self.unknown_tokens = tr.unknown_tokens
 
+
 def convert_file(filename):
     converter = Converter()
     items = converter.do_file(filename)
     header = items.next()
     lines = list(items)
     return lines, converter.unknown_tokens, converter.bytes_read, header
+
 
 def output_file(filename):
     converter = Converter()
@@ -137,7 +145,5 @@ def output_file(filename):
         print("All tokens translated")
 
 
-
 if __name__ == '__main__':
     output_file(sys.argv[1])
-
