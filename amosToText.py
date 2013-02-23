@@ -5,8 +5,8 @@ window."""
 from __future__ import print_function
 import struct
 import sys
-from amosTokens import token_map
-from extensions import extensions_table
+from AmosPy.amosTokens import token_map
+from AmosPy.extensions import extensions_table
 
 
 def baseN(num, b, numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
@@ -109,7 +109,9 @@ class Converter(object):
         self.unknown_tokens = 0
 
     def do_file(self, filename):
-        """Convert a file into lines of text"""
+        """Convert a file into lines of text.
+        Note the file header is the first item yielded,
+        then plain text after that."""
         tr = TokenReader()
         byteStream = open(filename, "rb")
         header = readHeader(byteStream)
@@ -127,6 +129,7 @@ def convert_file(filename):
     converter = Converter()
     items = converter.do_file(filename)
     header = next(items)
+    #We exhaust the iterator because the converter data is only there afterwards.
     lines = list(items)
     return lines, converter.unknown_tokens, converter.bytes_read, header
 

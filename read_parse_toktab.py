@@ -5,7 +5,7 @@ This was a script used in the production of amosTokens.py.
 """
 from __future__ import print_function
 from re import match, search
-from amosTokens import token_map
+from AmosPy.amosTokens import token_map
 
 
 def capitalize_all(line):
@@ -35,7 +35,7 @@ def get_tokens(lines):
 
     lines = (line for line in lines if not line.startswith('*'))  # kill comments
     lines = (line.strip() for line in lines)  # kill rubbish around lines
-    lines = [line for line in lines if line]  # kill blank lines
+    lines = (line for line in lines if line)  # kill blank lines
     lines = [line for line in lines if not match("[A-Za-z_][A-Za-z0-9_]*:", line)]  # kill labels
     #Pair up the lines
     il = iter(lines)

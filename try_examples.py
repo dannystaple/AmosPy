@@ -8,7 +8,7 @@ from amosToText import convert_file, BadTokenRead
 
 def try_conversion(amos_file):
     try:
-        lines, unknown_tokens, bytesRead, header = convert_file(amos_file)
+        _, unknown_tokens, bytesRead, header = convert_file(amos_file)
         return unknown_tokens
     except (BadTokenRead, struct.error):
         return 1
