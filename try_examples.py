@@ -1,4 +1,5 @@
 """Try the amos example files with amosToText and see which fail"""
+from __future__ import print_function
 import glob
 import struct
 import os
@@ -21,9 +22,9 @@ def main():
         amos_files = glob.glob(os.path.join(path, "*.AMOS"))
         _ = [results.append((try_conversion(amos_file), amos_file)) for amos_file in amos_files]
     results = [(result, name) for result, name in results if result != 0]
-    print "Unfound tokens or problems found in %d files" % len(results)
+    print("Unfound tokens or problems found in %d files" % len(results))
     for result, name in results:
-        print name
+        print(name)
 
 
 if __name__ == "__main__":
