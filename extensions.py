@@ -1,3 +1,7 @@
+"""Amos had a number of extension modules.
+This is a table of extensions I've seen,
+along with their tokens.
+"""
 extensions_table = {
     1: {
         0x0012: 'Vumeter',
