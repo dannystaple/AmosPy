@@ -1,7 +1,7 @@
 """Token table and code to deal with special cases."""
 import struct
 
-__author__ = 'stapled'
+
 def readRem(byteStream):
     """The rem - remark/comment type tokens"""
     commentLength = struct.unpack('bb', byteStream.read(2))[1]
@@ -10,16 +10,17 @@ def readRem(byteStream):
     bytesRead += commentLength
     return bytesRead, comment
 
+
 def readVal(byteStream):
     """Values - all seem to be 4 bytes long"""
     intVal = struct.unpack('>i', byteStream.read(4))[0]
     return 4, intVal
 
+
 def readFloatVal(byteStream):
     """Read a floating point value"""
     floatVal = struct.unpack(">f", byteStream.read(4))[0]
     return 4, floatVal
-
 
 
 def readLabelType(byteStream):
@@ -29,11 +30,12 @@ def readLabelType(byteStream):
     bytesRead += 4
     name = struct.unpack("%ds" % length, byteStream.read(length))[0].rstrip("\x00")
     if flags & 1:
-        name += "#" #Floats in amos
+        name += "#"  # Floats in amos
     elif flags and 2:
         name += "$"
     bytesRead += length
     return bytesRead, name
+
 
 def unknownSize(size):
     """Some tokens have an 'unknown' extra bytes. Make sure to eat them"""
@@ -41,6 +43,7 @@ def unknownSize(size):
         byteStream.read(size)
         return size, None
     return _read
+
 
 def readString(byteStream):
     """String constants"""
@@ -53,6 +56,7 @@ def readString(byteStream):
     data = struct.unpack("%ds" % length, byteStream.read(length))[0].rstrip("\x00")
     bytesRead += length
     return bytesRead, data
+
 
 def readProcedure(byteStream):
     """This is the procedure declaration. So far - nothing can be done for a compiled or encrypted one"""
@@ -72,6 +76,7 @@ def readProcedure(byteStream):
         byteStream.read(bytesToEnd)
         bytesRead += bytesToEnd
     return bytesRead, {'bytesToEnd': bytesToEnd, 'encSeed': (encSeed, encSeed2), 'flags': flags}
+
 
 def readExtension(byteStream):
     """An extension token. For now - look in extensions.py for their mappings"""
