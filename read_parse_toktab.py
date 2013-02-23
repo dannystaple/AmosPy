@@ -1,16 +1,23 @@
-from pprint import pprint
+"""The toktab file was the assembly source for the token table.
+This was to read it, parse it, and output python structures to
+represent the data required from it.
+This was a script used in the production of amosTokens.py.
+"""
 from re import match, search
 from amosTokens import token_map
 
-__author__ = 'stapled'
-
 
 def capitalize_all(line):
+    """Amos has a habit of capitalizing the first letter of all words in a statement."""
     words = line.split(" ")
     words = [word.capitalize() for word in words]
     return " ".join(words)
 
+
 def process_similar(new_pairs):
+    """Some entries were the same words, but with prefixes - so as to be different tokens.
+    These often represent different uses of the same word, or variations on a
+    function - overloading"""
     in_repeat = None
     for address, name, orig in new_pairs:
         if name.startswith('"!'):
@@ -23,13 +30,12 @@ def process_similar(new_pairs):
         yield (address, name, orig)
 
 
-def get_tokens():
-    with open("toktabparsed.txt") as fd:
-        lines = fd.readlines()
-    lines = [line for line in lines if not line.startswith('*')] # kill comments
-    lines = [line.strip() for line in lines] # kill rubbish around lines
-    lines = [line for line in lines if line] # kill blank lines
-    lines = [line for line in lines if not match("[A-Za-z_][A-Za-z0-9_]*:", line)] # kill labels
+def get_tokens(lines):
+
+    lines = (line for line in lines if not line.startswith('*'))  # kill comments
+    lines = (line.strip() for line in lines)  # kill rubbish around lines
+    lines = [line for line in lines if line]  # kill blank lines
+    lines = [line for line in lines if not match("[A-Za-z_][A-Za-z0-9_]*:", line)]  # kill labels
     #Pair up the lines
     il = iter(lines)
     line_pairs = zip(il, il)
@@ -53,11 +59,12 @@ def get_tokens():
     new_pairs = [(address, capitalize_all(name), orig) for address, name, orig in new_pairs]
     return lines, new_pairs, non_tokens
 
+
 def convert_to_dict(new_pairs):
     new_pairs = [(int(address, 16), name) for address, name, orig in new_pairs]
     token_map.update(new_pairs)
     pair_list = [(key, token_map[key]) for key in token_map]
-    pair_list = sorted(pair_list, cmp = lambda item, other: cmp(item[0], other[0]))
+    pair_list = sorted(pair_list, cmp=lambda item, other: cmp(item[0], other[0]))
     for key, value in pair_list:
         if isinstance(value, tuple):
             value = (value[0], value[1].func_name)
@@ -65,6 +72,8 @@ def convert_to_dict(new_pairs):
         else:
             print "0x%04x: %s," % (key, repr(value))
 
+
 if __name__ == '__main__':
-    lines, new_pairs, non_tokens = get_tokens()
+    with open("toktabparsed.txt") as fd:
+        lines, new_pairs, non_tokens = get_tokens(fd.readlines())
     convert_to_dict(new_pairs)
