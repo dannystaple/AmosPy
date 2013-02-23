@@ -1,4 +1,4 @@
-from read_parse_toktab import process_similar, capitalize_all
+from AmosPy.read_parse_toktab import process_similar, capitalize_all
 
 
 def test_process_similar():
