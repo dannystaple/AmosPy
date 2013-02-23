@@ -126,7 +126,7 @@ class Converter(object):
 def convert_file(filename):
     converter = Converter()
     items = converter.do_file(filename)
-    header = items.next()
+    header = next(items)
     lines = list(items)
     return lines, converter.unknown_tokens, converter.bytes_read, header
 
@@ -134,7 +134,7 @@ def convert_file(filename):
 def output_file(filename):
     converter = Converter()
     items = converter.do_file(filename)
-    header = items.next()
+    header = next(items)
     try:
         [print(line) for line in items]
     finally:
