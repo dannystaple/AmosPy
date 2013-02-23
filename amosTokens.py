@@ -28,7 +28,7 @@ def readLabelType(byteStream):
     bytesRead = 0
     unknown, length, flags = struct.unpack("Hbb", byteStream.read(4))
     bytesRead += 4
-    name = struct.unpack("%ds" % length, byteStream.read(length))[0].rstrip("\x00")
+    name = str(struct.unpack("%ds" % length, byteStream.read(length))[0].rstrip(b"\x00"))
     if flags & 1:
         name += "#"  # Floats in amos
     elif flags and 2:
@@ -53,7 +53,8 @@ def readString(byteStream):
     #Round to next word boundary
     if length % 2:
         length += 1
-    data = struct.unpack("%ds" % length, byteStream.read(length))[0].rstrip("\x00")
+    unpacked = struct.unpack("%ds" % length, byteStream.read(length))
+    data = unpacked[0].rstrip(b"\x00")
     bytesRead += length
     return bytesRead, data
 

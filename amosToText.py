@@ -100,7 +100,7 @@ def tokenToStr(tokenName, tokenData):
             if tokenData is not None:
                 output += " " + repr(tokenData)
 
-    return output
+    return str(output)
 
 
 class Converter(object):

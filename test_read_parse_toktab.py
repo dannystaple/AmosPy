@@ -15,6 +15,7 @@ def test_capitalize_all():
     line = "the quick brown fox"
     assert(capitalize_all(line) == "The Quick Brown Fox")
 
+
 # def test_get_tokens_from_lines():
 #     """Test that given a sample set of toktab lines,
 #         the tokens can be read from them sensibly"""
