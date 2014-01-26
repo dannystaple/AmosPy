@@ -15,6 +15,7 @@ def readHeader(byteStream):
 
 
 def extension_str(data):
+    """Handle tokens from Amos extensions"""
     extNo, token = data
     if extNo in extensions_table and token in extensions_table[extNo]:
         return extensions_table[extNo][token]
@@ -64,13 +65,13 @@ class Converter(object):
         Note the file header is the first item yielded,
         then plain text after that."""
         tr = TokenReader()
-        byteStream = open(filename, "rb")
-        header = readHeader(byteStream)
-        yield header
-        self.bytes_read = 0
-        while self.bytes_read < header['length']:
-            inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
-            self.bytes_read += inBytesRead
-            line = indentLevel * ' ' + ' '.join(tokenToStr(*token) for token in tokensRead)
-            yield line
-        self.unknown_tokens = tr.unknown_tokens
+        with open(filename, "rb") as byteStream:
+            header = readHeader(byteStream)
+            yield header
+            self.bytes_read = 0
+            while self.bytes_read < header['length']:
+                inBytesRead, indentLevel, tokensRead = tr.readTokenisedLine(byteStream)
+                self.bytes_read += inBytesRead
+                line = indentLevel * ' ' + ' '.join(tokenToStr(*token) for token in tokensRead)
+                yield line
+            self.unknown_tokens = tr.unknown_tokens
