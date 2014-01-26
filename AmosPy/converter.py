@@ -1,8 +1,7 @@
+"""Core conversion of AMOS tokens to text"""
 import struct
 from AmosPy.extensions import extensions_table
 from AmosPy.token_reader import TokenReader
-
-__author__ = 'danny'
 
 
 def baseN(num, b, numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
