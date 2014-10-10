@@ -759,6 +759,7 @@ token_map = {
     0x252c: 'Prg State',
     0x253c: 'Command Line$',
     0x2550: 'Disc Info$',
+    0x25a4: ('Else If', unknownSize(2)),
     0x292a: 'Read Text',
     0x2ac0: 'Arexx Open',
     0x2ad2: 'Arexx Close',
@@ -787,4 +788,3 @@ token_map = {
     0xffec: '/',
     0xfff6: '^',
     }
-
