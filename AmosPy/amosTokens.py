@@ -760,8 +760,12 @@ token_map = {
     0x253c: 'Command Line$',
     0x2550: 'Disc Info$',
     0x25a4: ('Else If', unknownSize(2)),
+    0x25e0: 'Frame Load',
+    0x25ec: 'Frame Play', # two argument variant
+    0x2600: 'Frame Play', # three argument variant
     0x26d8: 'Erase All',
     0x292a: 'Read Text',
+    0x2952: 'Assign',
     0x2ac0: 'Arexx Open',
     0x2ad2: 'Arexx Close',
     0x2ae4: 'Arexx Exist',
@@ -770,6 +774,8 @@ token_map = {
     0x2b10: 'Arexx Wait',
     0x2b34: 'Arexx Answer',
     0x2b3e: 'Exec',
+    0x2b4a: 'Monitor',
+    0x2b58: 'Screen Mode',
     0x2b72: 'Kill Editor',
     0xff3e: 'Xor',
     0xff4c: 'Or',
