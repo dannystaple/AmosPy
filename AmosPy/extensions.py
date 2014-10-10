@@ -12,6 +12,7 @@ extensions_table = {
         0x0074: 'Boom',
         0x007e: 'Shoot',
         0x00f8: 'Sam Play',
+        0x00de: 'Sam Play',
         0x0118: 'Bell',
         0X0144: 'Play',
         0x0196: 'Mvolume',
@@ -23,9 +24,10 @@ extensions_table = {
         0x0256: 'Sam Stop',
         0x025e: 'Track Stop',
         0x026e: 'Track Loop On',
-        0x0282: 'Track Loop Off',
+        0x0282: 'Track Loop Of', # This is actually a typo in AMOS!
         0x0296: 'Track Play',
-        0x02ba: 'Track Load',
+        0x02a8: 'Track Play',
+        0x02ba: 'Track Load'
     },
     2: {
         0x0006: 'Pack',
