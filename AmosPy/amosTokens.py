@@ -19,8 +19,21 @@ def readVal(byteStream):
 
 def readFloatVal(byteStream):
     """Read a floating point value"""
-    floatVal = struct.unpack(">f", byteStream.read(4))[0]
-    return 4, floatVal
+    floatBits = struct.unpack(">i", byteStream.read(4))[0]
+    mantissa = (floatBits >> 8) & 0xFFFFFF;
+    sign = floatBits & 0x80;
+    exponent = floatBits & 0x7f;
+
+    if exponent == 0 :
+      return 4, 0.0
+    else :
+      floatVal = 0
+      for mBit in range(24) :
+        if (mantissa >> mBit) & 1 :
+          floatVal += 2 ** (mBit + exponent - 88)
+      if sign != 0 :
+        floatVal *= -1
+      return 4, floatVal
 
 
 def readLabelType(byteStream):
@@ -787,4 +800,3 @@ token_map = {
     0xffec: '/',
     0xfff6: '^',
     }
-
