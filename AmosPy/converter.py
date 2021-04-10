@@ -8,17 +8,17 @@ def baseN(num, b, numerals="0123456789abcdefghijklmnopqrstuvwxyz"):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + numerals[num % b])
 
 
-def readHeader(byteStream):
+def read_header(byteStream):
     version = struct.unpack('16s', byteStream.read(16))[0]
-    nBytes = struct.unpack('>I', byteStream.read(4))[0]
-    return {'version': version, 'length': nBytes}
+    num_bytes = struct.unpack('>I', byteStream.read(4))[0]
+    return {'version': version, 'length': num_bytes}
 
 
 def extension_str(data):
     """Handle tokens from Amos extensions"""
-    extNo, token = data
-    if extNo in extensions_table and token in extensions_table[extNo]:
-        return extensions_table[extNo][token]
+    extension_no, token = data
+    if extension_no in extensions_table and token in extensions_table[extension_no]:
+        return extensions_table[extension_no][token]
     else:
         return "[Extension %d : 0x%04x]" % data
 
@@ -66,7 +66,7 @@ class Converter(object):
         then plain text after that."""
         tr = TokenReader()
         with open(filename, "rb") as byteStream:
-            header = readHeader(byteStream)
+            header = read_header(byteStream)
             yield header
             self.bytes_read = 0
             while self.bytes_read < header['length']:
