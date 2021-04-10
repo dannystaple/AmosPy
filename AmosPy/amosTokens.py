@@ -19,8 +19,21 @@ def readVal(byteStream):
 
 def readFloatVal(byteStream):
     """Read a floating point value"""
-    floatVal = struct.unpack(">f", byteStream.read(4))[0]
-    return 4, floatVal
+    floatBits = struct.unpack(">i", byteStream.read(4))[0]
+    mantissa = (floatBits >> 8) & 0xFFFFFF;
+    sign = floatBits & 0x80;
+    exponent = floatBits & 0x7f;
+
+    if exponent == 0 :
+      return 4, 0.0
+    else :
+      floatVal = 0
+      for mBit in range(24) :
+        if (mantissa >> mBit) & 1 :
+          floatVal += 2 ** (mBit + exponent - 88)
+      if sign != 0 :
+        floatVal *= -1
+      return 4, floatVal
 
 
 def readLabelType(byteStream):
@@ -759,7 +772,13 @@ token_map = {
     0x252c: 'Prg State',
     0x253c: 'Command Line$',
     0x2550: 'Disc Info$',
+    0x25a4: ('Else If', unknownSize(2)),
+    0x25e0: 'Frame Load',
+    0x25ec: 'Frame Play', # two argument variant
+    0x2600: 'Frame Play', # three argument variant
+    0x26d8: 'Erase All',
     0x292a: 'Read Text',
+    0x2952: 'Assign',
     0x2ac0: 'Arexx Open',
     0x2ad2: 'Arexx Close',
     0x2ae4: 'Arexx Exist',
@@ -768,6 +787,9 @@ token_map = {
     0x2b10: 'Arexx Wait',
     0x2b34: 'Arexx Answer',
     0x2b3e: 'Exec',
+    0x2b4a: 'Monitor',
+    0x2b58: 'Screen Mode',
+    0x2b72: 'Kill Editor',
     0xff3e: 'Xor',
     0xff4c: 'Or',
     0xff58: 'And',
@@ -787,4 +809,3 @@ token_map = {
     0xffec: '/',
     0xfff6: '^',
     }
-
