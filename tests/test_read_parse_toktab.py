@@ -11,7 +11,8 @@ def test_process_similar():
 
 
 def test_capitalize_all():
-    """It should capitalize all the words in the line"""
+    """It should capitalize all the words in the line,
+    mimicking the default of the AMOS IDE"""
     line = "the quick brown fox"
     assert(capitalize_all(line) == "The Quick Brown Fox")
 
