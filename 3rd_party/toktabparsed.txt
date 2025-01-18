@@ -1,0 +1,1433 @@
+* Operateurs
+FFFFFF3E+4 	dc.w CXor-Tk,Synt-Tk
+   +10 	dc.b " xor"," "+$80,"O00",-1
+FFFFFF4C+4 	dc.w COr-Tk,Synt-Tk
+   +8 	dc.b " or"," "+$80,"O00",-1
+FFFFFF58+4 	dc.w CAnd-Tk,Synt-Tk
+   +10 	dc.b " and"," "+$80,"O00",-1
+FFFFFF66+4 	dc.w CDif-Tk,Synt-Tk
+   +6 	dc.b "<",">"+$80,"O20",-1
+FFFFFF70+4 	dc.w CDif-Tk,Synt-Tk
+   +6 	dc.b ">","<"+$80,"O20",-1
+FFFFFF7A+4 	dc.w CInfEg-Tk,Synt-Tk
+   +6 	dc.b "<","="+$80,"O20",-1
+FFFFFF84+4 	dc.w CInfEg-Tk,Synt-Tk
+   +6 	dc.b "=","<"+$80,"O20",-1
+FFFFFF8E+4 	dc.w CSupEg-Tk,Synt-Tk
+   +6 	dc.b ">","="+$80,"O20",-1
+FFFFFF98+4 	dc.w CSupEg-Tk,Synt-Tk
+   +6 	dc.b "=",">"+$80,"O20",-1
+FFFFFFA2+4 TkEg:	dc.w CEg-Tk,Synt-Tk
+   +6 	dc.b "="+$80,"O20",-1
+FFFFFFAC+4 	dc.w CInf-Tk,Synt-Tk
+   +6 	dc.b "<"+$80,"O20",-1
+FFFFFFB6+4 	dc.w CSup-Tk,Synt-Tk
+   +6 	dc.b ">"+$80,"O20",-1
+FFFFFFC0+4 	dc.w CPlus-Tk,Synt-Tk
+   +6 	dc.b "+"+$80,"O22",-1
+FFFFFFCA+4 TkM:	dc.w CMoins-Tk,OpeM-Tk
+   +6 	dc.b "-"+$80,"O22",-1
+FFFFFFD4+4 	dc.w CMod-Tk,Synt-Tk
+   +10 	dc.b " mod"," "+$80,"O00",-1
+FFFFFFE2+4 	dc.w CMult-Tk,Synt-Tk
+   +6 	dc.b "*"+$80,"O00",-1
+FFFFFFEC+4 	dc.w CDiv-Tk,Synt-Tk
+   +6 	dc.b "/"+$80,"O00",-1
+FFFFFFF6+4 TkPow:	dc.w CPuis-Tk,Synt-Tk
+   +6 	dc.b "^"+$80,"O00",-1
+
+********
+0+4 Tk:	dc.w ChrEnd-Tk,FNull-Tk
+   +2 	dc.b $80,-1
+********
+* Variables
+6+4 TkVar:	dc.w IVar-Tk,FVar-Tk
+   +2 	dc.b $80,-1
+C+4 TkLab:	dc.w CLabel-Tk,Synt-Tk
+   +2 	dc.b $80,-1
+12+4 TkPro:	dc.w CDoPro-Tk,Synt-Tk
+   +2 	dc.b $80,-1
+18+4 TkLGo:	dc.w CLGoto-Tk,Synt-Tk
+   +2 	dc.b $80,-1
+
+* Constantes
+1E+4 TkBin:	dc.w Synt-Tk,FEnt-Tk
+   +4 	dc.b $80,"C0",-1
+26+4 TkCh1:	dc.w Synt-Tk,FChaine-Tk
+   +4 	dc.b $80,"C2",-1
+2E+4 TkCh2:	dc.w Synt-Tk,FChaine-Tk
+   +4 	dc.b $80,"C2",-1
+36+4 TkHex:	dc.w Synt-Tk,FEnt-Tk
+   +4 	dc.b $80,"C0",-1
+3E+4 TkEnt:	dc.w Synt-Tk,FEnt-Tk
+   +4 	dc.b $80,"C0",-1
+46+4 TkFl:	dc.w Synt-Tk,FFloat-Tk
+   +4 	dc.b $80,"C1",-1
+* Token d'extension
+4E+4 TkExt:	dc.w IExtension-Tk,FExtension-Tk
+   +2 	dc.b $80,-1
+
+* Deux points, ...
+54+4 TkDP:	dc.w CIDP-Tk,FNull-Tk
+   +4 	dc.b ":"," "+$80,-1
+5C+4 TkVir:	dc.w Synt-Tk,FNull-Tk
+   +4 	dc.b ","+$80,"O",-1
+64+4 TkPVir:	dc.w Synt-Tk,Synt-Tk
+   +4 	dc.b ";"+$80,"O",-1
+6C+4 TkDieze:dc.w Synt-Tk,Synt-Tk
+   +4 	dc.b "#"+$80,"O",-1
+	
+* Parentheses
+74+4 TkPar1:	dc.w Synt-Tk,Evalue-Tk
+   +4 	dc.b "("+$80,"O",-1
+7C+4 TkPar2:	dc.w Synt-Tk,FNull-Tk
+   +4 	dc.b ")"+$80,"O",-1
+84+4 TkBra1:	dc.w Synt-Tk,Synt-Tk
+   +4 	dc.b "["+$80,"O",-1
+8C+4 TkBra2:	dc.w Synt-Tk,Synt-Tk
+   +4 	dc.b "]"+$80,"O",-1
+
+* Instructions normales
+94+4 TkTo:	dc.w Synt-Tk,FNull-Tk
+   +4 	dc.b "to"," "+$80,-1
+9C+4 TkNot:	dc.w Synt-Tk,CNot-Tk
+   +6 	dc.b "not"," "+$80,-1
+A6+4 TkSwap	dc.w CSwap-Tk,Synt-Tk
+   +6 	dc.b "swap"," "+$80,-1
+B0+4 TkDFn	dc.w CDefFn-Tk,Synt-Tk
+   +8 	dc.b "def fn"," "+$80,-1
+BC+4 TkFn	dc.w Synt-Tk,CFn-Tk
+   +4 	dc.b "fn"," "+$80,-1
+C4+4 	dc.w CINop-Tk,Synt-Tk
+   +12 	dc.b "follow of","f"+$80,"I",-1
+D4+4 TkFol	dc.w Cfollow-Tk,Synt-Tk
+   +8 	dc.b "follo","w"+$80,"I",-1
+E0+4 	dc.w 0,L_ResNext
+   +14 	dc.b "resume nex","t"+$80,"I",-1
+* Tokens AVANT les autres!
+F2+4 	dc.w 0,L_FInky
+   +8 	dc.b "inkey","$"+$80,"2",-1
+FE+4 	dc.w 0,L_FRpt
+   +12 	dc.b "repeat","$"+$80,"22,0",-1
+10E+4 	dc.w 0,L_FZone
+   +10 	dc.b "zone","$"+$80,"22,0",-1
+11C+4 	dc.w 0,L_FSur
+   +12 	dc.b "border","$"+$80,"22,0",-1
+12C+4 	dc.w 0,L_DBuf
+   +16 	dc.b "double buffe","r"+$80,"I",-1
+140+4 	dc.w 0,L_FnSt
+   +8 	dc.b "star","t"+$80,"00",-1
+14C+4 	dc.w 0,L_FnLn
+   +10 	dc.b "lengt","h"+$80,"00",-1
+15A+4 	dc.w 0,L_Dok
+   +10 	dc.b "dok","e"+$80,"I0,0",-1
+168+4 	dc.w 0,L_OMnDel
+   +14 	dc.b "on menu de","l"+$80,"I",-1
+17A+4 	dc.w 0,L_OMnOn
+   +12 	dc.b "on menu o","n"+$80,"I",-1
+18A+4 	dc.w 0,L_OMnOff
+   +14 	dc.b "on menu of","f"+$80,"I",-1
+19C+4 	dc.w 0,L_EvOn
+   +10 	dc.b "every o","n"+$80,"I",-1
+1AA+4 	dc.w 0,L_EvOff
+   +12 	dc.b "every of","f"+$80,"I",-1
+1BA+4 	dc.w 0,L_FLBase
+   +10 	dc.b "logbas","e"+$80,"00",-1
+1C8+4 	dc.w 0,L_Log0
+   +8 	dc.b "!logi","c"+$80,"0",-2
+1D4+4 	dc.w 0,L_Log1
+   +4 	dc.b $80,"00",-1
+1DC+4 	dc.w 0,L_Asc
+   +6 	dc.b "as","c"+$80,"02",-1
+1E6+4 TkAs:	dc.w Synt-Tk,Synt-Tk
+   +4 	dc.b "a","s"+$80,"I",-1
+1EE+4 TkCall	dc.w CCall-Tk,Synt-Tk
+   +6 	dc.b "cal","l"+$80,"I",-1
+1F8+4 	dc.w 0,L_FExe
+   +10 	dc.b "execal","l"+$80,"00",-1
+206+4 	dc.w 0,L_FGfx
+   +10 	dc.b "gfxcal","l"+$80,"00",-1
+214+4 	dc.w 0,L_FDos
+   +10 	dc.b "doscal","l"+$80,"00",-1
+222+4 	dc.w 0,L_FIntu
+   +10 	dc.b "intcal","l"+$80,"00",-1
+230+4 	dc.w 0,L_Frz
+   +8 	dc.b "freez","e"+$80,"I",-1
+
+* Boucles / Branchements
+TkBcl1:	
+23C+4 TkFor:	dc.w CFor-Tk,Synt-Tk
+   +6 	dc.b "for"," "+$80,-1
+246+4 TkNxt:	dc.w CNext-Tk,Synt-Tk
+   +6 	dc.b "next"," "+$80,-1
+250+4 TkRpt:	dc.w CRepeat-Tk,Synt-Tk
+   +8 	dc.b "repeat"," "+$80,-1
+25C+4 TkUnt:	dc.w CUntil-Tk,Synt-Tk
+   +8 	dc.b "until"," "+$80,-1
+268+4 TkWhl:	dc.w CWhile-Tk,Synt-Tk
+   +8 	dc.b "while"," "+$80,-1
+274+4 TkWnd:	dc.w CWend-Tk,Synt-Tk
+   +6 	dc.b "wend"," "+$80,-1
+27E+4 TkDo:	dc.w CRepeat-Tk,Synt-Tk
+   +4 	dc.b "do"," "+$80,-1
+286+4 TkLoo:	dc.w CLoop-Tk,Synt-Tk
+   +6 	dc.b "loop"," "+$80,-1
+290+4 TkExIf:	dc.w CExitIf-Tk,Synt-Tk
+   +10 	dc.b "exit if"," "+$80,-1
+29E+4 TkExit:	dc.w CExit-Tk,Synt-Tk
+   +6 	dc.b "exit"," "+$80,-1
+2A8+4 TkGto:	dc.w CGoto-Tk,Synt-Tk
+   +6 	dc.b "goto"," "+$80,-1
+2B2+4 TkGsb:	dc.w CGosub-Tk,Synt-Tk
+   +8 	dc.b "gosub"," "+$80,-1
+2BE+4 TkIf:	dc.w CIf-Tk,Synt-Tk
+   +4 	dc.b "if"," "+$80,-1
+2C6+4 TkThen:	dc.w CINop-Tk,FNull-Tk
+   +6 	dc.b "then"," "+$80,-1
+2D0+4 TkElse:	dc.w CElse-Tk,FNull-Tk
+   +6 	dc.b "else"," "+$80,-1
+2DA+4 TkEndI:	dc.w CINop-Tk,Synt-Tk
+   +8 	dc.b "end if"," "+$80,-1
+2E6+4 TkOnE:	dc.w ConErr-Tk,Synt-Tk
+   +10 	dc.b "on error"," "+$80,-1
+2F4+4 TkOnB:	dc.w Synt-Tk,Synt-Tk
+   +16 	dc.b "on break proc"," "+$80,-1
+308+4 TkOMen:	dc.w Conmen-Tk,Synt-Tk
+   +10 	dc.b "on men","u"+$80,"I0",-1
+316+4 TkOn:	dc.w COn-Tk,Synt-Tk
+   +4 	dc.b "on"," "+$80,-1
+31E+4 TkRLab:	dc.w CResL-Tk,Synt-Tk
+   +14 	dc.b "resume label"," "+$80,-1
+330+4 TkRes:	dc.w CRes-Tk,Synt-Tk
+   +8 	dc.b "resume"," "+$80,-1
+33C+4 TkPpp:	dc.w CPopP-Tk,Synt-Tk
+   +10 	dc.b "pop pro","c"+$80,-1
+34A+4 TkEve:	dc.w CEvery-Tk,Synt-Tk
+   +8 	dc.b "ever","y"+$80,"I",-1	
+TkBcl2:
+356+4 TkStp:	dc.w Synt-Tk,Synt-Tk
+   +6 	dc.b "step"," "+$80,-1
+360+4 	dc.w CReturn-Tk,Synt-Tk
+   +8 	dc.b "retur","n"+$80,"I",-1
+36C+4 	dc.w CPop-Tk,Synt-Tk
+   +6 	dc.b "po","p"+$80,"I",-1
+376+4 TkProc:	dc.w CProc-Tk,Synt-Tk
+   +12 	dc.b "procedure"," "+$80,-1
+386+4 TkPrc:	dc.w CPrc-Tk,Synt-Tk
+   +6 	dc.b "proc"," "+$80,-1
+390+4 TkEndP:	dc.w CEProc-Tk,Synt-Tk
+   +10 	dc.b "end pro","c"+$80,-1
+39E+4 TkSha:	dc.w CShar-Tk,Synt-Tk
+   +8 	dc.b "shared"," "+$80,-1
+3AA+4 TkGlo:	dc.w CGlob-Tk,Synt-Tk
+   +8 	dc.b "global"," "+$80,-1
+3B6+4 	dc.w 0,L_End
+   +6 	dc.b "en","d"+$80,"I",-1
+3C0+4 	dc.w 0,L_Stop
+   +6 	dc.b "sto","p"+$80,"I",-1
+3CA+4 	dc.w Synt-Tk,CparamF-Tk
+   +8 	dc.b "param","#"+$80,"1",-1
+3D6+4 	dc.w Synt-Tk,CparamC-Tk
+   +8 	dc.b "param","$"+$80,"2",-1
+3E2+4 	dc.w Synt-Tk,CparamE-Tk
+   +8 	dc.b "para","m"+$80,"0",-1
+3EE+4 	dc.w 0,L_IErrn
+   +8 	dc.b "erro","r"+$80,"I0",-1
+3FA+4 	dc.w 0,L_FErrn
+   +6 	dc.b "err","n"+$80,"0",-1
+404+4 TkData:	dc.w CData-Tk,Synt-Tk
+   +6 	dc.b "data"," "+$80,-1
+40E+4 TkRead:	dc.w CRead-Tk,Synt-Tk
+   +6 	dc.b "read"," "+$80,-1
+418+4 TkRest:	dc.w CRest-Tk,Synt-Tk
+   +10 	dc.b "restore"," "+$80,-1
+426+4 	dc.w 0,L_BreakOff
+   +12 	dc.b "break of","f"+$80,"I",-1
+436+4 	dc.w 0,L_BreakOn
+   +10 	dc.b "break o","n"+$80,"I",-1
+444+4 TkInc:	dc.w CInc-Tk,Synt-Tk
+   +6 	dc.b "in","c"+$80,"I",-1
+44E+4 TkDec:	dc.w CDec-Tk,Synt-Tk
+   +6 	dc.b "de","c"+$80,"I",-1
+458+4 TkAd2:	dc.w CAdd2-Tk,Synt-Tk
+   +6 	dc.b "!ad","d"+$80,"I",-2
+462+4 TkAd4:	dc.w CAdd4-Tk,Synt-Tk
+   +4 	dc.b $80,"I",-1
+* Print/Input
+46A+4 TkHPr:	dc.w CHPrnt-Tk,Synt-Tk
+   +8 	dc.b "print ","#"+$80,-1
+476+4 TkPr:	dc.w CPrnt-Tk,Synt-Tk
+   +8 	dc.b "prin","t"+$80,"I",-1
+482+4 TkLPr:	dc.w CLPrnt-Tk,Synt-Tk
+   +8 	dc.b "lprin","t"+$80,"I",-1
+48E+4 	dc.w 0,L_Finput1
+   +10 	dc.b "!input","$"+$80,"20",-2
+49C+4 	dc.w 0,L_Finput2
+   +6 	dc.b $80,"20,0",-1
+4A6+4 TkUsing:dc.w Synt-Tk,Synt-Tk
+   +8 	dc.b "usin","g"+$80,"I",-1
+4B2+4 TkDInp	dc.w CInputH-Tk,Synt-Tk
+   +8 	dc.b "input ","#"+$80,-1
+4BE+4 TkDLInp	dc.w CLInputH-Tk,Synt-Tk
+   +14 	dc.b "line input ","#"+$80,-1
+4D0+4 TkInp:	dc.w CInput-Tk,Synt-Tk
+   +8 	dc.b "inpu","t"+$80,"I",-1
+4DC+4 TkLInp:	dc.w CLInput-Tk,Synt-Tk
+   +12 	dc.b "line inpu","t"+$80,"I",-1
+4EC+4 	dc.w Synt-Tk,Synt-Tk
+   +6 	dc.b "!ru","n"+$80,"I",-2
+4F6+4 	dc.w 0,L_Run
+   +4 	dc.b $80,"I2",-1
+4FE+4 TkSBu:	dc.w CSBuf-Tk,Synt-Tk
+   +12 	dc.b "set buffe","r"+$80,"I",-1
+* Gestion des chaines
+50E+4 TkMid1:	dc.w CIMid3-Tk,CFMid3-Tk
+   +12 	dc.b "!mid","$"+$80,"22,0,0",-2
+51E+4 	dc.w CIMid2-Tk,CFMid2-Tk
+   +6 	dc.b $80,"22,0",-1
+528+4 	dc.w CILeft-Tk,CFLeft-Tk
+   +10 	dc.b "left","$"+$80,"22,0",-1
+536+4 	dc.w CIRight-Tk,CFRight-Tk
+   +12 	dc.b "right","$"+$80,"22,0",-1
+546+4 TkMid2:	dc.w 0,L_Flip
+   +8 	dc.b "flip","$"+$80,"22",-1
+552+4 	dc.w 0,L_Chr
+   +8 	dc.b "chr","$"+$80,"20",-1
+55E+4 	dc.w 0,L_Space
+   +10 	dc.b "space","$"+$80,"20",-1
+56C+4 	dc.w 0,L_String
+   +12 	dc.b "string","$"+$80,"22,0",-1
+57C+4 	dc.w 0,L_FLwr
+   +10 	dc.b "upper","$"+$80,"22",-1
+58A+4 	dc.w 0,L_FUpp
+   +10 	dc.b "lower","$"+$80,"22",-1
+598+4 	dc.w Synt-Tk,CStr-Tk
+   +8 	dc.b "str","$"+$80,"20",-1
+5A4+4 	dc.w Synt-Tk,CVal-Tk
+   +6 	dc.b "va","l"+$80,"02",-1
+5AE+4 	dc.w 0,L_Bin1
+   +8 	dc.b "!bin","$"+$80,"20",-2
+5BA+4 	dc.w 0,L_Bin2
+   +6 	dc.b $80,"20,0",-1
+5C4+4 	dc.w 0,L_Hex1
+   +8 	dc.b "!hex","$"+$80,"20",-2
+5D0+4 	dc.w 0,L_Hex2
+   +6 	dc.b $80,"20,0",-1
+5DA+4 	dc.w 0,L_Len
+   +6 	dc.b "le","n"+$80,"02",-1
+5E4+4 	dc.w 0,L_Instr2
+   +12 	dc.b "!inst","r"+$80,"02,2",-2
+5F4+4 	dc.w 0,L_Instr3
+   +8 	dc.b $80,"02,2,0",-1
+600+4 	dc.w 0,L_FTab
+   +6 	dc.b "tab","$"+$80,"2",-1
+60A+4 	dc.w 0,L_Free
+   +6 	dc.b "fre","e"+$80,"0",-1
+614+4 TkVptr	dc.w Synt-Tk,Cvarptr-Tk
+   +8 	dc.b "varpt","r"+$80,"0",-1
+620+4 	dc.w 0,L_WnMx2
+   +12 	dc.b "remember ","x"+$80,"I",-1
+630+4 	dc.w 0,L_WnMy2
+   +12 	dc.b "remember ","y"+$80,"I",-1
+
+640+4 TkDim:	dc.w CDim-Tk,Synt-Tk
+   +6 	dc.b "di","m"+$80,"I",-1
+64A+4 TkRem1:	dc.w CRem-Tk,Synt-Tk
+   +4 	dc.b "re","m"+$80,-1
+652+4 TkRem2:	dc.w CRem-Tk,Synt-Tk
+   +2 	dc.b "'"+$80,-1
+658+4 TkSort	dc.w CSort-Tk,Synt-Tk
+   +6 	dc.b "sor","t"+$80,"I",-1
+662+4 TkFnd1	dc.w Synt-Tk,CMatch-Tk
+   +10 	dc.b "matc","h"+$80,"03,3",-1
+670+4 	dc.w 0,L_Edit
+   +6 	dc.b "edi","t"+$80,"I",-1
+67A+4 	dc.w 0,L_Direct
+   +8 	dc.b "direc","t"+$80,"I",-1
+* Fonctions
+686+4 	dc.w 0,L_Rnd
+   +6 	dc.b "rn","d"+$80,"00",-1
+690+4 	dc.w 0,L_Random
+   +12 	dc.b "randomiz","e"+$80,"I0",-1
+6A0+4 	dc.w Synt-Tk,CSgn-Tk
+   +6 	dc.b "sg","n"+$80,"00",-1
+6AA+4 	dc.w Synt-Tk,CAbs-Tk
+   +6 	dc.b "ab","s"+$80,"00",-1
+6B4+4 	dc.w Synt-Tk,CInt-Tk
+   +6 	dc.b "in","t"+$80,"00",-1
+6BE+4 	dc.w 0,L_Rad
+   +8 	dc.b "radia","n"+$80,"I",-1
+6CA+4 	dc.w 0,L_Deg
+   +8 	dc.b "degre","e"+$80,"I",-1
+6D6+4 	dc.w 0,L_Pi
+   +6 	dc.b "pi","#"+$80,"1",-1
+6E0+4 	dc.w 0,L_Fix
+   +6 	dc.b "fi","x"+$80,"I0",-1
+6EA+4 TkMin:	dc.w Synt-Tk,CMin-Tk
+   +8 	dc.b "mi","n"+$80,"00,0",-1
+6F6+4 TkMax:	dc.w Synt-Tk,CMax-Tk
+   +8 	dc.b "ma","x"+$80,"00,0",-1
+702+4 TkMat1:	dc.w Synt-Tk,CSin-Tk
+   +6 	dc.b "si","n"+$80,"00",-1
+70C+4 	dc.w Synt-Tk,CCos-Tk
+   +6 	dc.b "co","s"+$80,"00",-1
+716+4 	dc.w Synt-Tk,CTan-Tk
+   +6 	dc.b "ta","n"+$80,"00",-1
+720+4 	dc.w Synt-Tk,CAsin-Tk
+   +8 	dc.b "asi","n"+$80,"00",-1
+72C+4 	dc.w Synt-Tk,CACos-Tk
+   +8 	dc.b "aco","s"+$80,"00",-1
+738+4 	dc.w Synt-Tk,CATan-Tk
+   +8 	dc.b "ata","n"+$80,"00",-1
+744+4 	dc.w Synt-Tk,CHSin-Tk
+   +8 	dc.b "hsi","n"+$80,"00",-1
+750+4 	dc.w Synt-Tk,CHCos-Tk
+   +8 	dc.b "hco","s"+$80,"00",-1
+75C+4 	dc.w Synt-Tk,CHTan-Tk
+   +8 	dc.b "hta","n"+$80,"00",-1
+768+4 	dc.w Synt-Tk,CSqr-Tk
+   +6 	dc.b "sq","r"+$80,"00",-1
+772+4 	dc.w Synt-Tk,CLog-Tk
+   +6 	dc.b "lo","g"+$80,"00",-1
+77C+4 	dc.w Synt-Tk,CLn-Tk
+   +6 	dc.b "l","n"+$80,"00",-1
+786+4 	dc.w Synt-Tk,CExp-Tk
+   +6 	dc.b "ex","p"+$80,"00",-1
+TkMat2:
+* MENUS!!!
+790+4 	dc.w 0,L_MnToBank
+   +16 	dc.b "menu to ban","k"+$80,"I0",-1
+7A4+4 	dc.w 0,L_BkToMenu
+   +16 	dc.b "bank to men","u"+$80,"I0",-1
+7B8+4 	dc.w 0,L_MnOn
+   +10 	dc.b "menu o","n"+$80,"I",-1
+7C6+4 	dc.w 0,L_MnOff
+   +10 	dc.b "menu of","f"+$80,"I",-1
+7D4+4 	dc.w 0,L_MnCalc
+   +12 	dc.b "menu cal","c"+$80,"I",-1
+7E4+4 	dc.w 0,L_MnMOn
+   +16 	dc.b "menu mouse o","n"+$80,"I",-1
+7F8+4 	dc.w 0,L_MnMOf
+   +16 	dc.b "menu mouse of","f"+$80,"I",-1
+80C+4 	dc.w 0,L_MnBs
+   +14 	dc.b "menu bas","e"+$80,"I0,0",-1
+TkDMn:
+81E+4 TkSMn:	dc.w CSMenu-Tk,Synt-Tk
+   +16 	dc.b "set men","u"+$80,"I0t0,0",-1
+832+4 TkXMn	dc.w Synt-Tk,CXMenu-Tk
+   +10 	dc.b "x men","u"+$80,"00",-1
+840+4 TkYMn	dc.w Synt-Tk,CYMenu-Tk
+   +10 	dc.b "y men","u"+$80,"00",-1
+84E+4 TkMnK	dc.w Cmnkey-Tk,Synt-Tk
+   +16 	dc.b "menu ke","y"+$80,"I0t0,0",-1
+862+4 TkIMn1:	dc.w CMnBar-Tk,Synt-Tk
+   +12 	dc.b "menu ba","r"+$80,"I0",-1
+872+4 	dc.w CmnLine-Tk,Synt-Tk
+   +12 	dc.b "menu lin","e"+$80,"I0",-1
+882+4 	dc.w CmnTline-Tk,Synt-Tk
+   +14 	dc.b "menu tlin","e"+$80,"I0",-1
+894+4 	dc.w CMnmove-Tk,Synt-Tk
+   +16 	dc.b "menu movabl","e"+$80,"I0",-1
+8A8+4 	dc.w CMnsta-Tk,Synt-Tk
+   +14 	dc.b "menu stati","c"+$80,"I0",-1
+8BA+4 	dc.w Cmnimove-Tk,Synt-Tk
+   +20 	dc.b "menu item movabl","e"+$80,"I0",-1
+8D2+4 	dc.w Cmnista-Tk,Synt-Tk
+   +20 	dc.b "menu item stati","c"+$80,"I0",-1
+8EA+4 	dc.w CMnact-Tk,Synt-Tk
+   +14 	dc.b "menu activ","e"+$80,"I0",-1
+8FC+4 	dc.w CMninact-Tk,Synt-Tk
+   +16 	dc.b "menu inactiv","e"+$80,"I0",-1
+910+4 	dc.w CMnsep-Tk,Synt-Tk
+   +16 	dc.b "menu separat","e"+$80,"I0",-1
+924+4 	dc.w Cmnlink-Tk,Synt-Tk
+   +12 	dc.b "menu lin","k"+$80,"I0",-1
+934+4 TkMnCl	dc.w Cmncall-Tk,Synt-Tk
+   +14 	dc.b "menu calle","d"+$80,"I0",-1
+946+4 	dc.w Cmnonce-Tk,Synt-Tk
+   +12 	dc.b "menu onc","e"+$80,"I0",-1
+TkIMn2:	
+956+4 TkMnD:	dc.w CMnDel-Tk,Synt-Tk
+   +10 	dc.b "menu de","l"+$80,"I",-1
+964+4 TkMenu:	dc.w CMenu-Tk,Synt-Tk
+   +8 	dc.b "menu","$"+$80,"V",-1
+970+4 TkFMn:	dc.w 0,L_FMen0
+   +10 	dc.b "!choic","e"+$80,"0",-2
+97E+4 	dc.w 0,L_FMen1
+   +4 	dc.b $80,"00",-1
+
+* Screen instructions
+986+4 	dc.w 0,L_Scop2
+   +18 	dc.b "!screen cop","y"+$80,"I0t0",-2
+99C+4 	dc.w Synt-Tk,Synt-Tk
+   +8 	dc.b $80,"I0t00",-2
+9A8+4 	dc.w 0,L_Scop8
+   +18 	dc.b $80,"I0,0,0,0,0t0,0,0",-2
+9BE+4 	dc.w 0,L_Scop9
+   +20 	dc.b $80,"I0,0,0,0,0t0,0,0,0",-1
+9D6+4 	dc.w 0,L_ScClon
+   +16 	dc.b "screen clon",$80+"e","I0",-1
+9EA+4 	dc.w 0,L_ScOpen
+   +22 	dc.b "screen ope","n"+$80,"I0,0,0,0,0",-1
+A04+4 	dc.w 0,L_ScClo
+   +16 	dc.b "screen clos",$80+"e","I0",-1
+A18+4 TkScD:	dc.w 0,L_ScDisp
+   +26 	dc.b "screen displa","y"+$80,"I0,0,0,0,0",-1
+A36+4 TkScO:	dc.w 0,L_ScOffs
+   +20 	dc.b "screen offse","t"+$80,"I0,0,0",-1
+A4E+4 TkScS:	dc.w Synt-Tk,Synt-Tk
+   +12 	dc.b "screen siz","e"+$80,-1
+A5E+4 	dc.w 0,L_FSCol
+   +16 	dc.b "screen colou","r"+$80,"0",-1
+A72+4 	dc.w 0,L_ScFr0
+   +18 	dc.b "!screen to fron","t"+$80,"I",-2
+A88+4 	dc.w 0,L_ScFr1
+   +4 	dc.b $80,"I0",-1
+A90+4 	dc.w 0,L_ScBk0
+   +18 	dc.b "!screen to bac","k"+$80,"I",-2
+AA6+4 	dc.w 0,L_ScBk1
+   +4 	dc.b $80,"I0",-1
+AAE+4 	dc.w 0,L_ScHi0
+   +14 	dc.b "!screen hid","e"+$80,"I",-2
+AC0+4 	dc.w 0,L_ScHi1
+   +4 	dc.b $80,"I0",-1
+AC8+4 	dc.w 0,L_ScSh0
+   +14 	dc.b "!screen sho","w"+$80,"I",-2
+ADA+4 	dc.w 0,L_ScSh1
+   +4 	dc.b $80,"I0",-1
+AE2+4 	dc.w 0,L_Scswp0
+   +14 	dc.b "!screen swa","p"+$80,"I",-2
+AF4+4 	dc.w 0,L_Scswp1
+   +4 	dc.b $80,"I0",-1
+AFC+4 	dc.w 0,L_ScSave1
+   +12 	dc.b "!save if","f"+$80,"I2",-2
+B0C+4 	dc.w 0,L_ScSave2
+   +6 	dc.b $80,"I2,0",-1
+B16+4 	dc.w 0,L_View
+   +6 	dc.b "vie","w"+$80,"I",-1
+B20+4 	dc.w 0,L_AvOff
+   +16 	dc.b "auto view of","f"+$80,"I",-1
+B34+4 	dc.w 0,L_AvOn
+   +14 	dc.b "auto view o","n"+$80,"I",-1
+B46+4 	dc.w 0,L_FSBase
+   +14 	dc.b "screen bas","e"+$80,"0",-1
+B58+4 	dc.w 0,L_FScW0
+   +16 	dc.b "!screen widt","h"+$80,"0",-2
+B6C+4 	dc.w 0,L_FScW1
+   +4 	dc.b $80,"00",-1
+B74+4 	dc.w 0,L_FScH0
+   +16 	dc.b "!screen heigh","t"+$80,"0",-2
+B88+4 	dc.w 0,L_FScH1
+   +4 	dc.b $80,"00",-1
+B90+4 	dc.w 0,L_GPal1
+   +16 	dc.b "!get palett","e"+$80,"I0",-2
+BA4+4 	dc.w 0,L_GPal2
+   +6 	dc.b $80,"I0,0",-1
+BAE+4 	dc.w 0,L_Cls0
+   +6 	dc.b "!cl","s"+$80,"I",-2
+BB8+4 	dc.w 0,L_Cls1
+   +4 	dc.b $80,"I0",-2
+BC0+4 	dc.w 0,L_Cls5
+   +12 	dc.b $80,"I0,0,0t0,0",-1
+BD0+4 	dc.w 0,L_DefSc
+   +26 	dc.b "def scrol","l"+$80,"I0,0,0t0,0,0,0",-1
+* Conversions de coordonnees
+BEE+4 	dc.w 0,L_XHard1
+   +10 	dc.b "!x har","d"+$80,"00",-2
+BFC+4 	dc.w 0,L_XHard2
+   +6 	dc.b $80,"00,0",-1
+C06+4 	dc.w 0,L_YHard1
+   +10 	dc.b "!y har","d"+$80,"00",-2
+C14+4 	dc.w 0,L_YHard2
+   +6 	dc.b $80,"00,0",-1
+C1E+4 	dc.w 0,L_XScr1
+   +12 	dc.b "!x scree","n"+$80,"00",-2
+C2E+4 	dc.w 0,L_XScr2
+   +6 	dc.b $80,"00,0",-1
+C38+4 	dc.w 0,L_YScr1
+   +12 	dc.b "!y scree","n"+$80,"00",-2
+C48+4 	dc.w 0,L_YScr2
+   +6 	dc.b $80,"00,0",-1
+C52+4 	dc.w 0,L_XTxt1
+   +10 	dc.b "x tex","t"+$80,"00",-1
+C60+4 	dc.w 0,L_YTxt1
+   +10 	dc.b "y tex","t"+$80,"00",-1
+
+C6E+4 TkScr:	dc.w 0,L_Scr
+   +10 	dc.b "!scree","n"+$80,"I0",-3
+C7C+4 	dc.w 0,L_FScr
+   +4 	dc.b $80,"0",-1
+C84+4 	dc.w 0,L_FHires
+   +8 	dc.b "hire","s"+$80,"0",-1
+C90+4 	dc.w 0,L_FLowRes
+   +8 	dc.b "lowre","s"+$80,"0",-1
+C9C+4 	dc.w 0,L_Dual
+   +20 	dc.b "dual playfiel","d"+$80,"I0,0",-1
+CB4+4 	dc.w 0,L_DuPri
+   +18 	dc.b "dual priorit","y"+$80,"I0,0",-1
+CCA+4 	dc.w 0,L_WtVbl
+   +10 	dc.b "wait vb","l"+$80,"I",-1
+CD8+4 TkDPal:	dc.w CDPal-Tk,Synt-Tk
+   +18 	dc.b "default palett","e"+$80,"I",-1
+CEE+4 	dc.w 0,L_Default
+   +10 	dc.b "defaul","t"+$80,"I",-1
+CFC+4 TkPal:	dc.w CPal-Tk,Synt-Tk
+   +10 	dc.b "palett","e"+$80,"I",-1
+D0A+4 	dc.w 0,L_ColourB
+   +14 	dc.b "colour bac","k"+$80,"I0",-1
+D1C+4 	dc.w 0,L_Colour
+   +12 	dc.b "!colou","r"+$80,"I0,0",-3
+D2C+4 	dc.w 0,L_FColour
+   +4 	dc.b $80,"00",-1
+D34+4 	dc.w 0,L_FlOff
+   +12 	dc.b "flash of","f"+$80,"I",-1
+D44+4 	dc.w 0,L_Flash
+   +10 	dc.b "flas","h"+$80,"I0,2",-1
+D52+4 	dc.w 0,L_ShOff
+   +12 	dc.b "shift of","f"+$80,"I",-1
+D62+4 	dc.w 0,L_ShUp
+   +18 	dc.b "shift u","p"+$80,"I0,0,0,0",-1
+D78+4 	dc.w 0,L_ShDown
+   +20 	dc.b "shift dow","n"+$80,"I0,0,0,0",-1
+D90+4 	dc.w 0,L_SRain6
+   +26 	dc.b "!set rainbo","w"+$80,"I0,0,0,2,2,2",-2
+DAE+4 	dc.w 0,L_SRain7
+   +16 	dc.b $80,"I0,0,0,2,2,2,0",-1
+DC2+4 	dc.w 0,L_RainD0
+   +14 	dc.b "!rainbow de","l"+$80,"I",-2
+DD4+4 	dc.w 0,L_RainD1
+   +4 	dc.b $80,"I0",-1
+DDC+4 TkRn:	dc.w 0,L_Rain
+   +16 	dc.b "rainbo","w"+$80,"I0,0,0,0",-1
+DF0+4 	dc.w 0,L_IRain
+   +10 	dc.b "rai","n"+$80,"V00,0",-1
+DFE+4 TkFade:	dc.w CFade-Tk,Synt-Tk
+   +6 	dc.b "fad","e"+$80,"I",-1
+E08+4 	dc.w 0,L_FPBase
+   +10 	dc.b "phybas","e"+$80,"00",-1
+E16+4 	dc.w 0,L_Phy0
+   +10 	dc.b "!physi","c"+$80,"0",-2
+E24+4 	dc.w 0,L_Phy1
+   +4 	dc.b $80,"00",-1
+E2C+4 	dc.w 0,L_AutoB
+   +12 	dc.b "autobac","k"+$80,"I0",-1
+* Instructions graphiques
+E3C+4 	dc.w 0,L_Plot2
+   +10 	dc.b "!plo","t"+$80,"I0,0",-2
+E4A+4 	dc.w 0,L_Plot3
+   +8 	dc.b $80,"I0,0,0",-1
+E56+4 	dc.w 0,L_FPoint
+   +10 	dc.b "poin","t"+$80,"00,0",-1
+E64+4 	dc.w 0,L_Draw2
+   +12 	dc.b "draw t","o"+$80,"I0,0",-1
+E74+4 	dc.w 0,L_Draw4
+   +14 	dc.b "dra","w"+$80,"I0,0t0,0",-1
+E86+4 	dc.w 0,L_Ell
+   +16 	dc.b "ellips","e"+$80,"I0,0,0,0",-1
+E9A+4 	dc.w 0,L_Cir
+   +14 	dc.b "circl","e"+$80,"I0,0,0",-1
+EAC+4 TkPoL:	dc.w CPoLine-Tk,Synt-Tk
+   +10 	dc.b "polylin","e"+$80,"I",-1
+EBA+4 TkPoG:	dc.w CPoGone-Tk,Synt-Tk
+   +10 	dc.b "polygo","n"+$80,"I",-1
+EC8+4 	dc.w 0,L_Bar
+   +12 	dc.b "ba","r"+$80,"I0,0t0,0",-1
+ED8+4 	dc.w 0,L_Box
+   +12 	dc.b "bo","x"+$80,"I0,0t0,0",-1
+EE8+4 	dc.w 0,L_Paint2
+   +12 	dc.b "!pain","t"+$80,"I0,0",-2
+EF8+4 	dc.w 0,L_Paint3
+   +8 	dc.b $80,"I0,0,0",-1
+F04+4 	dc.w 0,L_GrLoc
+   +14 	dc.b "gr locat","e"+$80,"I0,0",-1
+F16+4 	dc.w 0,L_FTLen
+   +14 	dc.b "text lengt","h"+$80,"02",-1
+F28+4 	dc.w 0,L_FStyle
+   +14 	dc.b "text style","s"+$80,"0",-1
+F3A+4 	dc.w 0,L_FTBase
+   +12 	dc.b "text bas","e"+$80,"0",-1
+F4A+4 	dc.w 0,L_Text
+   +12 	dc.b "tex","t"+$80,"I0,0,2",-1
+F5A+4 	dc.w 0,L_SText
+   +12 	dc.b "set tex","t"+$80,"I0",-1
+F6A+4 	dc.w 0,L_SPaint
+   +12 	dc.b "set pain","t"+$80,"I0",-1
+F7A+4 	dc.w 0,L_GFont
+   +12 	dc.b "get font","s"+$80,"I",-1
+F8A+4 	dc.w 0,L_GDFont
+   +16 	dc.b "get disc font","s"+$80,"I",-1
+F9E+4 	dc.w 0,L_GRFont
+   +16 	dc.b "get rom font","s"+$80,"I",-1
+FB2+4 	dc.w 0,L_SFont
+   +12 	dc.b "set fon","t"+$80,"I0",-1
+FC2+4 	dc.w 0,L_FFont
+   +8 	dc.b "font","$"+$80,"20",-1
+FCE+4 	dc.w 0,L_HSli
+   +22 	dc.b "hslide","r"+$80,"I0,0t0,0,0,0,0",-1
+FE8+4 	dc.w 0,L_VSli
+   +22 	dc.b "vslide","r"+$80,"I0,0t0,0,0,0,0",-1
+1002+4 	dc.w 0,L_SSli
+   +28 	dc.b "set slide","r"+$80,"I0,0,0,0,0,0,0,0",-1
+1022+4 	dc.w 0,L_SPat
+   +14 	dc.b "set patter","n"+$80,"I0",-1
+1034+4 	dc.w 0,L_StLine
+   +12 	dc.b "set lin","e"+$80,"I0",-1
+1044+4 	dc.w 0,L_Ink1
+   +8 	dc.b "!in","k"+$80,"I0",-2
+1050+4 	dc.w 0,L_Ink2
+   +6 	dc.b $80,"I0,0",-2
+105A+4 	dc.w 0,L_Ink3
+   +8 	dc.b $80,"I0,0,0",-1
+1066+4 	dc.w 0,L_GrWrt
+   +14 	dc.b "gr writin","g"+$80,"I0",-1
+1078+4 	dc.w 0,L_Clip0
+   +8 	dc.b "!cli","p"+$80,"I",-2
+1084+4 	dc.w 0,L_Clip4
+   +10 	dc.b $80,"I0,0t0,0",-1
+1092+4 	dc.w 0,L_SRas0
+   +14 	dc.b "!set tempra","s"+$80,"I",-2
+10A4+4 	dc.w 0,L_SRas1
+   +4 	dc.b $80,"I0",-2
+10AC+4 	dc.w 0,L_SRas2
+   +6 	dc.b $80,"I0,0",-1
+10B6+4 	dc.w 0,L_App3
+   +14 	dc.b "!appea","r"+$80,"I0t0,0",-2
+10C8+4 	dc.w 0,L_App4
+   +10 	dc.b $80,"I0t0,0,0",-1
+10D6+4 	dc.w 0,L_Zoom
+   +26 	dc.b "zoo","m"+$80,"I0,0,0,0,0t0,0,0,0,0",-1
+	
+* Blocs
+10F4+4 	dc.w 0,L_GtCBl
+   +22 	dc.b "get cbloc","k"+$80,"I0,0,0,0,0",-1
+110E+4 	dc.w 0,L_PtCBl1
+   +14 	dc.b "!put cbloc","k"+$80,"I0",-2
+1120+4 	dc.w 0,L_PtCBl3
+   +8 	dc.b $80,"I0,0,0",-1
+112C+4 	dc.w 0,L_DlCBl0
+   +14 	dc.b "!del cbloc","k"+$80,"I",-2
+113E+4 	dc.w 0,L_DlCBl1
+   +4 	dc.b $80,"I0",-1
+1146+4 	dc.w 0,L_GtBl5
+   +22 	dc.b "!get bloc","k"+$80,"I0,0,0,0,0",-2
+1160+4 	dc.w 0,L_GtBl6
+   +14 	dc.b $80,"I0,0,0,0,0,0",-1
+1172+4 	dc.w 0,L_PtBl1
+   +14 	dc.b "!put bloc","k"+$80,"I0",-2
+1184+4 	dc.w 0,L_PtBl3
+   +8 	dc.b $80,"I0,0,0",-2
+1190+4 	dc.w 0,L_PtBl4
+   +10 	dc.b $80,"I0,0,0,0",-2
+119E+4 	dc.w 0,L_PtBl5
+   +12 	dc.b $80,"I0,0,0,0,0",-1
+11AE+4 	dc.w 0,L_DlBl0
+   +12 	dc.b "!del bloc","k"+$80,"I",-2
+11BE+4 	dc.w 0,L_DlBl1
+   +4 	dc.b $80,"I0",-1
+
+* Instructions clavier
+11C6+4 	dc.w 0,L_KSpeed
+   +14 	dc.b "key spee","d"+$80,"I0,0",-1
+11D8+4 	dc.w 0,L_FKSt
+   +12 	dc.b "key stat","e"+$80,"00",-1
+11E8+4 	dc.w 0,L_FShft
+   +12 	dc.b "key shif","t"+$80,"0",-1
+11F8+4 	dc.w 0,L_FJoy
+   +6 	dc.b "jo","y"+$80,"00",-1
+1202+4 	dc.w 0,L_FJUp
+   +6 	dc.b "ju","p"+$80,"00",-1
+120C+4 	dc.w 0,L_FJDown
+   +8 	dc.b "jdow","n"+$80,"00",-1
+1218+4 	dc.w 0,L_FJLeft
+   +8 	dc.b "jlef","t"+$80,"00",-1
+1224+4 	dc.w 0,L_FJRight
+   +10 	dc.b "jrigh","t"+$80,"00",-1
+1232+4 	dc.w 0,L_FFire
+   +8 	dc.b "fir","e"+$80,"00",-1
+123E+4 	dc.w Synt-Tk,CTrue-Tk
+   +6 	dc.b "tru","e"+$80,"0",-1
+1248+4 	dc.w Synt-Tk,CFalse-Tk
+   +8 	dc.b "fals","e"+$80,"0",-1
+1254+4 	dc.w 0,L_PutKy
+   +10 	dc.b "put ke","y"+$80,"I2",-1
+1262+4 	dc.w 0,L_FScan
+   +10 	dc.b "scancod","e"+$80,"0",-1
+1270+4 	dc.w 0,L_FScSh
+   +12 	dc.b "scanshif","t"+$80,"0",-1
+1280+4 	dc.w 0,L_ClKy
+   +12 	dc.b "clear ke","y"+$80,"I",-1
+1290+4 	dc.w 0,L_WtKy
+   +10 	dc.b "wait ke","y"+$80,"I",-1
+129E+4 	dc.w 0,L_Wait
+   +8 	dc.b "wai","t"+$80,"I0",-1
+12AA+4 	dc.w 0,L_StKy
+   +8 	dc.b "key","$"+$80,"V20",-1
+12B6+4 	dc.w 0,L_FKy1
+   +10 	dc.b "!scan","$"+$80,"20",-2
+12C4+4 	dc.w 0,L_FKy2
+   +6 	dc.b $80,"20,0",-1
+12CE+4 	dc.w 0,L_Timer
+   +8 	dc.b "time","r"+$80,"V0",-1
+
+* Instruction fenetres
+12DA+4 	dc.w 0,L_WnOp5
+   +22 	dc.b "!wind ope","n"+$80,"I0,0,0,0,0",-2
+12F4+4 	dc.w 0,L_WnOp6
+   +14 	dc.b $80,"I0,0,0,0,0,0",-2
+1306+4 	dc.w 0,L_WnOp7
+   +16 	dc.b $80,"I0,0,0,0,0,0,0",-1
+131A+4 	dc.w 0,L_WnClo
+   +12 	dc.b "wind clos","e"+$80,"I",-1
+132A+4 	dc.w 0,L_WnSave
+   +12 	dc.b "wind sav","e"+$80,"I",-1
+133A+4 	dc.w 0,L_WnMove
+   +14 	dc.b "wind mov","e"+$80,"I0,0",-1
+134C+4 	dc.w 0,L_WnSize
+   +14 	dc.b "wind siz","e"+$80,"I0,0",-1
+135E+4 	dc.w 0,L_Wndow
+   +10 	dc.b "windo","w"+$80,"I0",-1
+136C+4 	dc.w 0,L_FWnDon
+   +8 	dc.b "windo","n"+$80,"0",-1
+
+1378+4 	dc.w 0,L_WnLoc
+   +12 	dc.b "locat","e"+$80,"I0,0",-1
+1388+4 	dc.w 0,L_WnClw
+   +6 	dc.b "cl","w"+$80,"I",-1
+1392+4 	dc.w 0,L_WnHome
+   +6 	dc.b "hom","e"+$80,"I",-1
+139C+4 	dc.w 0,L_WnCPe
+   +12 	dc.b "curs pe","n"+$80,"I0",-1
+13AC+4 	dc.w 0,L_FPen
+   +8 	dc.b "pen","$"+$80,"20",-1
+13B8+4 	dc.w 0,L_FPap
+   +10 	dc.b "paper","$"+$80,"20",-1
+13C6+4 	dc.w 0,L_FAt
+   +8 	dc.b "a","t"+$80,"20,0",-1
+13D2+4 	dc.w 0,L_WnPen
+   +6 	dc.b "pe","n"+$80,"I0",-1
+13DC+4 	dc.w 0,L_WnPap
+   +8 	dc.b "pape","r"+$80,"I0",-1
+13E8+4 	dc.w 0,L_WnCen
+   +10 	dc.b "centr","e"+$80,"I2",-1
+13F6+4 	dc.w 0,L_WnBor
+   +14 	dc.b "borde","r"+$80,"I0,0,0",-1
+1408+4 	dc.w 0,L_WnWrt1
+   +12 	dc.b "!writin","g"+$80,"I0",-2
+1418+4 	dc.w 0,L_WnWrt2
+   +6 	dc.b $80,"I0,0",-1
+1422+4 	dc.w 0,L_WnTTop
+   +12 	dc.b "title to","p"+$80,"I2",-1
+1432+4 	dc.w 0,L_WnTBot
+   +16 	dc.b "title botto","m"+$80,"I2",-1
+1446+4 	dc.w 0,L_WnCOf
+   +10 	dc.b "curs of","f"+$80,"I",-1
+1454+4 	dc.w 0,L_WnCOn
+   +10 	dc.b "curs o","n"+$80,"I",-1
+1462+4 	dc.w 0,L_WnIOf
+   +14 	dc.b "inverse of","f"+$80,"I",-1
+1474+4 	dc.w 0,L_WnIOn
+   +12 	dc.b "inverse o","n"+$80,"I",-1
+1484+4 	dc.w 0,L_WnUOf
+   +12 	dc.b "under of","f"+$80,"I",-1
+1494+4 	dc.w 0,L_WnUOn
+   +10 	dc.b "under o","n"+$80,"I",-1
+14A2+4 	dc.w 0,L_WnSOf
+   +12 	dc.b "shade of","f"+$80,"I",-1
+14B2+4 	dc.w 0,L_WnSOn
+   +10 	dc.b "shade o","n"+$80,"I",-1
+14C0+4 	dc.w 0,L_WnScOf
+   +12 	dc.b "scroll of","f"+$80,"I",-1
+14D0+4 	dc.w 0,L_WnScOn
+   +12 	dc.b "scroll o","n"+$80,"I",-1
+14E0+4 	dc.w 0,L_DoSc
+   +10 	dc.b "scrol","l"+$80,"I0",-1
+14EE+4 	dc.w 0,L_FCup
+   +6 	dc.b "cup","$"+$80,"2",-1
+14F8+4 	dc.w 0,L_FCDn
+   +8 	dc.b "cdown","$"+$80,"2",-1
+1504+4 	dc.w 0,L_FClf
+   +8 	dc.b "cleft","$"+$80,"2",-1
+1510+4 	dc.w 0,L_FCrt
+   +10 	dc.b "cright","$"+$80,"2",-1
+151E+4 	dc.w 0,L_WnCup
+   +6 	dc.b "cu","p"+$80,"I",-1
+1528+4 	dc.w 0,L_WnCdn
+   +8 	dc.b "cdow","n"+$80,"I",-1
+1534+4 	dc.w 0,L_WnClf
+   +8 	dc.b "clef","t"+$80,"I",-1
+1540+4 	dc.w 0,L_WnCrt
+   +8 	dc.b "crigh","t"+$80,"I",-1
+154C+4 	dc.w 0,L_WnMx1
+   +12 	dc.b "memorize ","x"+$80,"I",-1
+155C+4 	dc.w 0,L_WnMy1
+   +12 	dc.b "memorize ","y"+$80,"I",-1
+156C+4 	dc.w 0,L_FCMv
+   +12 	dc.b "cmove","$"+$80,"20,0",-1
+157C+4 	dc.w 0,L_WnCMv
+   +10 	dc.b "cmov","e"+$80,"I0,0",-1
+158A+4 	dc.w 0,L_WnCll
+   +8 	dc.b "!clin","e"+$80,"I",-2
+1596+4 	dc.w 0,L_WnClN
+   +4 	dc.b $80,"I0",-1
+159E+4 	dc.w 0,L_WnHSc
+   +10 	dc.b "hscrol","l"+$80,"I0",-1
+15AC+4 	dc.w 0,L_WnVSc
+   +10 	dc.b "vscrol","l"+$80,"I0",-1
+15BA+4 	dc.w 0,L_WnSta
+   +10 	dc.b "set ta","b"+$80,"I0",-1
+15C8+4 	dc.w 0,L_WnSCu
+   +26 	dc.b "set cur","s"+$80,"I0,0,0,0,0,0,0,0",-1
+15E6+4 	dc.w 0,L_FXCu
+   +8 	dc.b "x cur","s"+$80,"0",-1
+15F2+4 	dc.w 0,L_FYCu
+   +8 	dc.b "y cur","s"+$80,"0",-1
+15FE+4 	dc.w 0,L_FnXGr
+   +12 	dc.b "x graphi","c"+$80,"00",-1
+160E+4 	dc.w 0,L_FnYGr
+   +12 	dc.b "y graphi","c"+$80,"00",-1
+161E+4 	dc.w 0,L_XGr
+   +6 	dc.b "xg","r"+$80,"0",-1
+1628+4 	dc.w 0,L_YGr
+   +6 	dc.b "yg","r"+$80,"0",-1
+	
+* Zones
+1632+4 	dc.w 0,L_RZo0
+   +16 	dc.b "!reserve zon","e"+$80,"I",-2
+1646+4 	dc.w 0,L_RZo1
+   +4 	dc.b $80,"I0",-1
+164E+4 	dc.w 0,L_RsZo0
+   +14 	dc.b "!reset zon","e"+$80,"I",-2
+1660+4 	dc.w 0,L_RsZo1
+   +4 	dc.b $80,"I0",-1
+1668+4 	dc.w 0,L_SZo
+   +20 	dc.b "set zon","e"+$80,"I0,0,0t0,0",-1
+1680+4 	dc.w 0,L_FZo2
+   +10 	dc.b "!zon","e"+$80,"00,0",-2
+168E+4 	dc.w 0,L_FZo3
+   +8 	dc.b $80,"00,0,0",-1
+169A+4 	dc.w 0,L_FHZo2
+   +12 	dc.b "!hzon","e"+$80,"00,0",-2
+16AA+4 	dc.w 0,L_FHZo3
+   +8 	dc.b $80,"00,0,0",-1
+16B6+4 	dc.w 0,L_FScin2
+   +10 	dc.b "!sci","n"+$80,"00,0",-2
+16C4+4 	dc.w 0,L_FScin3
+   +8 	dc.b $80,"00,0,0",-1
+16D0+4 	dc.w 0,L_FMouSc
+   +14 	dc.b "mouse scree","n"+$80,"0",-1
+16E2+4 	dc.w 0,L_FMouZo
+   +12 	dc.b "mouse zon","e"+$80,"0",-1
+
+
+* Instructions disques
+16F2+4 	dc.w 0,L_SInp
+   +14 	dc.b "set inpu","t"+$80,"I0,0",-1
+1704+4 	dc.w 0,L_ClosWb
+   +18 	dc.b "close workbenc","h"+$80,"I",-1
+171A+4 	dc.w 0,L_ClosEd
+   +14 	dc.b "close edito","r"+$80,"I",-1
+172C+4 	dc.w 0,L_DirF
+   +14 	dc.b "dir first","$"+$80,"22",-1
+173E+4 	dc.w 0,L_DirN
+   +12 	dc.b "dir next","$"+$80,"2",-1
+174E+4 	dc.w 0,L_Exist
+   +8 	dc.b "exis","t"+$80,"02",-1
+175A+4 	dc.w 0,L_IDir
+   +8 	dc.b "dir","$"+$80,"V2",-1
+1766+4 	dc.w 0,L_LDirw0
+   +10 	dc.b "!ldir/","w"+$80,"I",-2
+1774+4 	dc.w 0,L_LDirw1
+   +4 	dc.b $80,"I2",-1
+177C+4 	dc.w 0,L_Dirw0
+   +8 	dc.b "!dir/","w"+$80,"I",-2
+1788+4 	dc.w 0,L_Dirw1
+   +4 	dc.b $80,"I2",-1
+1790+4 	dc.w 0,L_LDir0
+   +8 	dc.b "!ldi","r"+$80,"I",-2
+179C+4 	dc.w 0,L_LDir1
+   +4 	dc.b $80,"I2",-1
+17A4+4 	dc.w 0,L_Dir0
+   +6 	dc.b "!di","r"+$80,"I",-2
+17AE+4 	dc.w 0,L_Dir1
+   +4 	dc.b $80,"I2",-1
+17B6+4 	dc.w 0,L_SDir1
+   +10 	dc.b "set di","r"+$80,"I0",-2
+17C4+4 	dc.w 0,L_SDir2
+   +12 	dc.b "set di","r"+$80,"I0,2",-2
+17D4+4 	dc.w 0,L_LdIff1
+   +12 	dc.b "!load if","f"+$80,"I2",-2
+17E4+4 	dc.w 0,L_LdIff2
+   +6 	dc.b $80,"I2,0",-1
+17EE+4 	dc.w 0,L_IffMsk
+   +12 	dc.b "mask if","f"+$80,"I0",-1
+17FE+4 	dc.w 0,L_FPic
+   +10 	dc.b "pictur","e"+$80,"0",-1
+180C+4 	dc.w 0,L_BLoad
+   +10 	dc.b "bloa","d"+$80,"I2,0",-1
+181A+4 	dc.w 0,L_BSave
+   +12 	dc.b "bsav","e"+$80,"I2,0t0",-1
+182A+4 	dc.w 0,L_PLoad
+   +10 	dc.b "ploa","d"+$80,"I2,0",-1
+1838+4 	dc.w 0,L_Save1
+   +8 	dc.b "!sav","e"+$80,"I2",-2
+1844+4 	dc.w 0,L_Save2
+   +6 	dc.b $80,"I2,0",-1
+184E+4 	dc.w 0,L_Load1
+   +8 	dc.b "!loa","d"+$80,"I2",-2
+185A+4 	dc.w 0,L_Load2
+   +6 	dc.b $80,"I2,0",-1
+
+1864+4 	dc.w 0,L_DFree
+   +8 	dc.b "dfre","e"+$80,"0",-1
+1870+4 	dc.w 0,L_MkDir
+   +8 	dc.b "mkdi","r"+$80,"I2",-1
+187C+4 	dc.w 0,L_Lof
+   +6 	dc.b "lo","f"+$80,"00",-1
+1886+4 	dc.w 0,L_Eof
+   +6 	dc.b "eo","f"+$80,"00",-1
+1890+4 	dc.w 0,L_IPof
+   +8 	dc.b "po","f"+$80,"V00",-1
+189C+4 	dc.w 0,L_FPort
+   +8 	dc.b "por","t"+$80,"00",-1
+18A8+4 	dc.w 0,L_OpRan
+   +16 	dc.b "open rando","m"+$80,"I0,2",-1
+18BC+4 	dc.w 0,L_OpIn2
+   +12 	dc.b "open i","n"+$80,"I0,2",-1
+18CC+4 	dc.w 0,L_OpOut2
+   +14 	dc.b "open ou","t"+$80,"I0,2",-1
+18DE+4 	dc.w 0,L_OpPor
+   +14 	dc.b "open por","t"+$80,"I0,2",-1
+18F0+4 	dc.w 0,L_Appn
+   +12 	dc.b "appen","d"+$80,"I0,2",-1
+1900+4 	dc.w 0,L_CloAll
+   +8 	dc.b "!clos","e"+$80,"I",-2
+190C+4 	dc.w 0,L_Clo1
+   +4 	dc.b $80,"I0",-1
+1914+4 	dc.w 0,L_Par
+   +8 	dc.b "paren","t"+$80,"I",-1
+1920+4 	dc.w 0,L_Ren
+   +12 	dc.b "renam","e"+$80,"I2t2",-1
+1930+4 	dc.w 0,L_Kill
+   +8 	dc.b "kil","l"+$80,"I2",-1
+193C+4 	dc.w 0,L_Drive
+   +8 	dc.b "driv","e"+$80,"02",-1
+1948+4 TkFld	dc.w CField-Tk,Synt-Tk
+   +8 	dc.b "fiel","d"+$80,"I",-1
+1954+4 	dc.w 0,L_Fsel1
+   +10 	dc.b "!fsel","$"+$80,"22",-2
+1962+4 	dc.w 0,L_Fsel2
+   +6 	dc.b $80,"22,2",-2
+196C+4 	dc.w 0,L_Fsel3
+   +8 	dc.b $80,"22,2,2",-2
+1978+4 	dc.w 0,L_Fsel4
+   +10 	dc.b $80,"22,2,2,2",-2
+
+* Instructions SPRITES
+1986+4 	dc.w 0,L_SsBuf
+   +20 	dc.b "set sprite buffe","r"+$80,"I0",-1
+199E+4 	dc.w 0,L_SpOff0
+   +14 	dc.b "!sprite of","f"+$80,"I",-2
+19B0+4 	dc.w 0,L_SpOff1
+   +4 	dc.b $80,"I0",-1
+19B8+4 	dc.w 0,L_SpPri
+   +18 	dc.b "sprite priorit","y"+$80,"I0",-1
+19CE+4 	dc.w 0,L_SUpOf
+   +20 	dc.b "sprite update of","f"+$80,"I",-1
+19E6+4 	dc.w 0,L_SUpOn
+   +18 	dc.b "sprite update o","n"+$80,"I",-1
+19FC+4 	dc.w 0,L_SUpDa
+   +16 	dc.b "sprite updat","e"+$80,"I",-1
+1A10+4 	dc.w 0,L_SBCol1
+   +18 	dc.b "!spritebob co","l"+$80,"00",-2
+1A26+4 	dc.w 0,L_SBCol3
+   +8 	dc.b $80,"00,0t0",-1
+1A32+4 	dc.w 0,L_SpCol1
+   +14 	dc.b "!sprite co","l"+$80,"00",-2
+1A44+4 	dc.w 0,L_SpCol3
+   +8 	dc.b $80,"00,0t0",-1
+1A50+4 	dc.w 0,L_HCol
+   +16 	dc.b "set hardco","l"+$80,"I0,0",-1
+1A64+4 	dc.w 0,L_FHCol
+   +10 	dc.b "hardco","l"+$80,"00",-1
+1A72+4 	dc.w 0,L_SBase
+   +14 	dc.b "sprite bas","e"+$80,"00",-1
+1A84+4 	dc.w 0,L_IBase
+   +12 	dc.b "icon bas","e"+$80,"00",-1
+1A94+4 TkSpr:	dc.w 0,L_SpSp
+   +16 	dc.b "sprit","e"+$80,"I0,0,0,0",-1
+
+1AA8+4 	dc.w 0,L_BbOff0
+   +10 	dc.b "!bob of","f"+$80,"I",-2
+1AB6+4 	dc.w 0,L_BbOff1
+   +4 	dc.b $80,"I0",-1
+1ABE+4 	dc.w 0,L_BUpOf
+   +16 	dc.b "bob update of","f"+$80,"I",-1
+1AD2+4 	dc.w 0,L_BUpOn
+   +16 	dc.b "bob update o","n"+$80,"I",-1
+1AE6+4 	dc.w 0,L_BUpDa
+   +12 	dc.b "bob updat","e"+$80,"I",-1
+1AF6+4 	dc.w 0,L_BbClr
+   +12 	dc.b "bob clea","r"+$80,"I",-1
+1B06+4 	dc.w 0,L_BbDrw
+   +10 	dc.b "bob dra","w"+$80,"I",-1
+1B14+4 	dc.w 0,L_BSCol1
+   +18 	dc.b "!bobsprite co","l"+$80,"00",-2
+1B2A+4 	dc.w 0,L_BSCol3
+   +8 	dc.b $80,"00,0t0",-1
+1B36+4 	dc.w 0,L_BbCol1
+   +12 	dc.b "!bob co","l"+$80,"00",-2
+1B46+4 	dc.w 0,L_BbCol3
+   +8 	dc.b $80,"00,0t0",-1
+1B52+4 	dc.w 0,L_Coll
+   +6 	dc.b "co","l"+$80,"00",-1
+1B5C+4 	dc.w 0,L_LBob0
+   +12 	dc.b "!limit bo","b"+$80,"I",-2
+1B6C+4 	dc.w 0,L_LBob4
+   +10 	dc.b $80,"I0,0t0,0",-2
+1B7A+4 	dc.w 0,L_LBob5
+   +12 	dc.b $80,"I0,0,0t0,0",-1
+1B8A+4 	dc.w 0,L_StBb
+   +16 	dc.b "set bo","b"+$80,"I0,0,0,0",-1
+1B9E+4 TkBob:	dc.w 0,L_BbSt4
+   +12 	dc.b "bo","b"+$80,"I0,0,0,0",-1
+1BAE+4 	dc.w 0,L_GSpPal0
+   +22 	dc.b "!get sprite palett","e"+$80,"I",-2
+1BC8+4 	dc.w 0,L_GSpPal1
+   +4 	dc.b $80,"I0",-1
+1BD0+4 	dc.w 0,L_GetSp5
+   +22 	dc.b "!get sprit","e"+$80,"I0,0,0t0,0",-2
+1BEA+4 	dc.w 0,L_GetSp6
+   +14 	dc.b $80,"I0,0,0,0t0,0",-1
+1BFC+4 	dc.w 0,L_GetSp5
+   +20 	dc.b "!get bo","b"+$80,"I0,0,0t0,0",-2
+1C14+4 	dc.w 0,L_GetSp6
+   +14 	dc.b $80,"I0,0,0,0t0,0",-1
+1C26+4 	dc.w 0,L_DSp1
+   +14 	dc.b "!del sprit","e"+$80,"I0",-2
+1C38+4 	dc.w 0,L_DSp2
+   +6 	dc.b $80,"I0t0",-1
+1C42+4 	dc.w 0,L_DSp1
+   +12 	dc.b "!del bo","b"+$80,"I0",-2
+1C52+4 	dc.w 0,L_DSp2
+   +6 	dc.b $80,"I0t0",-1	
+1C5C+4 	dc.w 0,L_DIc1
+   +12 	dc.b "!del ico","n"+$80,"I0",-2
+1C6C+4 	dc.w 0,L_DIc2
+   +6 	dc.b $80,"I0t0",-1
+1C76+4 	dc.w 0,L_ISpr
+   +14 	dc.b "ins sprit","e"+$80,"I0",-1
+1C88+4 	dc.w 0,L_ISpr
+   +10 	dc.b "ins bo","b"+$80,"I0",-1
+1C96+4 	dc.w 0,L_ISpr
+   +12 	dc.b "ins ico","n"+$80,"I0",-1
+1CA6+4 	dc.w 0,L_GIPal0
+   +20 	dc.b "!get icon palett","e"+$80,"I",-2
+1CBE+4 	dc.w 0,L_GIPal1
+   +4 	dc.b $80,"I0",-1
+1CC6+4 	dc.w 0,L_GetIc5
+   +20 	dc.b "!get ico","n"+$80,"I0,0,0t0,0",-2
+1CDE+4 	dc.w 0,L_GetIc6
+   +14 	dc.b $80,"I0,0,0,0t0,0",-1
+1CF0+4 	dc.w 0,L_PBob
+   +10 	dc.b "put bo","b"+$80,"I0",-1
+1CFE+4 	dc.w 0,L_PatBb
+   +16 	dc.b "paste bo","b"+$80,"I0,0,0",-1
+1D12+4 	dc.w 0,L_PatIc
+   +18 	dc.b "paste ico","n"+$80,"I0,0,0",-1
+1D28+4 	dc.w 0,L_MkMask0
+   +12 	dc.b "!make mas","k"+$80,"I",-2
+1D38+4 	dc.w 0,L_MkMask1
+   +4 	dc.b $80,"I0",-1
+1D40+4 	dc.w 0,L_NoMask0
+   +10 	dc.b "!no mas","k"+$80,"I",-2
+1D4E+4 	dc.w 0,L_NoMask1
+   +4 	dc.b $80,"I0",-1
+1D56+4 	dc.w 0,L_MkIMs0
+   +18 	dc.b "!make icon mas","k"+$80,"I",-2
+1D6C+4 	dc.w 0,L_MkIMs1
+   +4 	dc.b $80,"I0",-1
+1D74+4 	dc.w 0,L_NoIMs0
+   +16 	dc.b "!no icon mas","k"+$80,"I",-2
+1D88+4 	dc.w 0,L_NoIMs0
+   +4 	dc.b $80,"I0",-1
+1D90+4 	dc.w 0,L_HotSp2
+   +14 	dc.b "!hot spo","t"+$80,"I0,0",-2
+1DA2+4 	dc.w 0,L_HotSp3
+   +8 	dc.b $80,"I0,0,0",-1
+1DAE+4 	dc.w 0,L_PrOn
+   +14 	dc.b "priority o","n"+$80,"I",-1
+1DC0+4 	dc.w 0,L_PrOf
+   +14 	dc.b "priority of","f"+$80,"I",-1
+
+1DD2+4 	dc.w 0,L_HidO
+   +10 	dc.b "hide o","n"+$80,"I",-1
+1DE0+4 	dc.w 0,L_Hide
+   +6 	dc.b "hid","e"+$80,"I",-1
+1DEA+4 	dc.w 0,L_ShoO
+   +10 	dc.b "show o","n"+$80,"I",-1
+1DF8+4 	dc.w 0,L_Show
+   +6 	dc.b "sho","w"+$80,"I",-1
+1E02+4 	dc.w 0,L_ChMou
+   +16 	dc.b "change mous","e"+$80,"I0",-1
+1E16+4 	dc.w 0,L_XMou
+   +10 	dc.b "x mous","e"+$80,"V0",-1
+1E24+4 	dc.w 0,L_YMou
+   +10 	dc.b "y mous","e"+$80,"V0",-1
+1E32+4 	dc.w 0,L_MouK
+   +12 	dc.b "mouse ke","y"+$80,"0",-1
+1E42+4 	dc.w 0,L_MouCl
+   +14 	dc.b "mouse clic","k"+$80,"0",-1
+1E54+4 	dc.w 0,L_LimM0
+   +14 	dc.b "!limit mous","e"+$80,"I",-2
+1E66+4 	dc.w 0,L_LimM1
+   +4 	dc.b $80,"I0",-2
+1E6E+4 	dc.w 0,L_LimM
+   +10 	dc.b $80,"I0,0t0,0",-1
+	
+* AMAL!
+1E7C+4 	dc.w 0,L_UFrz
+   +10 	dc.b "unfreez","e"+$80,"I",-1
+1E8A+4 	dc.w 0,L_MvX
+   +12 	dc.b "!move ","x"+$80,"I0,3",-2
+1E9A+4 	dc.w 0,L_MvX3
+   +8 	dc.b $80,"I0,2t0",-1
+1EA6+4 	dc.w 0,L_MvY
+   +12 	dc.b "!move ","y"+$80,"I0,3",-2
+1EB6+4 	dc.w 0,L_MvY3
+   +8 	dc.b $80,"I0,2t0",-1
+1EC2+4 	dc.w 0,L_MvOf0
+   +12 	dc.b "!move of","f"+$80,"I",-2
+1ED2+4 	dc.w 0,L_MvOf1
+   +4 	dc.b $80,"I0",-1
+1EDA+4 	dc.w 0,L_MvOn0
+   +10 	dc.b "!move o","n"+$80,"I",-2
+1EE8+4 	dc.w 0,L_MvOn1
+   +4 	dc.b $80,"I0",-1
+1EF0+4 	dc.w 0,L_MvFz0
+   +14 	dc.b "!move freez","e"+$80,"I",-2
+1F02+4 	dc.w 0,L_MvFz1
+   +4 	dc.b $80,"I0",-1
+1F0A+4 	dc.w 0,L_AnOf0
+   +12 	dc.b "!anim of","f"+$80,"I",-2
+1F1A+4 	dc.w 0,L_AnOf1
+   +4 	dc.b $80,"I0",-1
+1F22+4 	dc.w 0,L_AnOn0
+   +10 	dc.b "!anim o","n"+$80,"I",-2
+1F30+4 	dc.w 0,L_AnOn1
+   +4 	dc.b $80,"I0",-1
+1F38+4 	dc.w 0,L_AnFz0
+   +14 	dc.b "!anim freez","e"+$80,"I",-2
+1F4A+4 	dc.w 0,L_AnFz1
+   +4 	dc.b $80,"I0",-1
+1F52+4 	dc.w 0,L_Anm
+   +10 	dc.b "!ani","m"+$80,"I0,3",-2
+1F60+4 	dc.w 0,L_Anm3
+   +8 	dc.b $80,"I0,2t0",-1
+1F6C+4 	dc.w 0,L_Movon
+   +8 	dc.b "movo","n"+$80,"00",-1
+1F78+4 	dc.w 0,L_ChanA
+   +10 	dc.b "chana","n"+$80,"00",-1
+1F86+4 	dc.w 0,L_ChanM
+   +10 	dc.b "chanm","v"+$80,"00",-1
+1F94+4 TkChan:	dc.w CChannel-Tk,0
+   +10 	dc.b "channe","l"+$80,"I",-1
+1FA2+4 	dc.w 0,L_IAmR1
+   +10 	dc.b "!amre","g"+$80,"V00",-2
+1FB0+4 	dc.w 0,L_IAmR2
+   +8 	dc.b $80,"V00,0",-1
+1FBC+4 	dc.w 0,L_AmOn0
+   +10 	dc.b "!amal o","n"+$80,"I",-2
+1FCA+4 	dc.w 0,L_AmOn1
+   +4 	dc.b $80,"I0",-1
+1FD2+4 	dc.w 0,L_AmOf0
+   +12 	dc.b "!amal of","f"+$80,"I",-2
+1FE2+4 	dc.w 0,L_AmOf1
+   +4 	dc.b $80,"I0",-1
+1FEA+4 	dc.w 0,L_AmFz0
+   +14 	dc.b "!amal freez","e"+$80,"I",-2
+1FFC+4 	dc.w 0,L_AmFz1
+   +4 	dc.b $80,"I0",-1
+2004+4 	dc.w 0,L_AmE
+   +10 	dc.b "amaler","r"+$80,"0",-1
+2012+4 	dc.w 0,L_Am
+   +10 	dc.b "!ama","l"+$80,"I0,3",-2
+2020+4 	dc.w 0,L_Am3
+   +8 	dc.b $80,"I0,2t0",-1
+202C+4 	dc.w 0,L_AmP2
+   +12 	dc.b "!ampla","y"+$80,"I0,0",-2
+203C+4 	dc.w 0,L_AmP4
+   +10 	dc.b $80,"I0,0,0t0",-1
+204A+4 	dc.w 0,L_SOn
+   +12 	dc.b "synchro o","n"+$80,"I",-1
+205A+4 	dc.w 0,L_SOff
+   +14 	dc.b "synchro of","f"+$80,"I",-1
+206C+4 	dc.w 0,L_Sync
+   +10 	dc.b "synchr","o"+$80,"I",-1
+207A+4 	dc.w 0,L_UpOff
+   +12 	dc.b "update of","f"+$80,"I",-1
+208A+4 	dc.w 0,L_UpOn
+   +12 	dc.b "update o","n"+$80,"I",-1
+209A+4 	dc.w 0,L_UpEv
+   +16 	dc.b "update ever","y"+$80,"I0",-1
+20AE+4 	dc.w 0,L_UpDa
+   +8 	dc.b "updat","e"+$80,"I",-1
+20BA+4 	dc.w 0,L_XBob
+   +8 	dc.b "x bo","b"+$80,"00",-1
+20C6+4 	dc.w 0,L_YBob
+   +8 	dc.b "y bo","b"+$80,"00",-1
+20D2+4 	dc.w 0,L_XSp
+   +12 	dc.b "x sprit","e"+$80,"00",-1
+20E2+4 	dc.w 0,L_YSp
+   +12 	dc.b "y sprit","e"+$80,"00",-1
+	
+* Memoire / Banques
+20F2+4 	dc.w 0,L_RsWrk
+   +20 	dc.b "reserve as wor","k"+$80,"I0,0",-1
+210A+4 	dc.w 0,L_RsCWrk
+   +26 	dc.b "reserve as chip wor","k"+$80,"I0,0",-1
+2128+4 	dc.w 0,L_RsDat
+   +20 	dc.b "reserve as dat","a"+$80,"I0,0",-1
+2140+4 	dc.w 0,L_RsCDat
+   +26 	dc.b "reserve as chip dat","a"+$80,"I0,0",-1
+215E+4 	dc.w 0,L_Erase
+   +8 	dc.b "eras","e"+$80,"I0",-1
+216A+4 	dc.w 0,L_LBank
+   +12 	dc.b "list ban","k"+$80,"I",-1
+217A+4 	dc.w 0,L_FChip
+   +12 	dc.b "chip fre","e"+$80,"0",-1
+218A+4 	dc.w 0,L_FFast
+   +12 	dc.b "fast fre","e"+$80,"0",-1
+219A+4 	dc.w 0,L_Fill
+   +12 	dc.b "fil","l"+$80,"I0t0,0",-1
+21AA+4 	dc.w 0,L_Copy
+   +12 	dc.b "cop","y"+$80,"I0,0t0",-1
+21BA+4 	dc.w 0,L_Hunt
+   +12 	dc.b "hun","t"+$80,"00t0,2",-1
+21CA+4 	dc.w 0,L_Pok
+   +10 	dc.b "pok","e"+$80,"I0,0",-1
+21D8+4 	dc.w 0,L_Lok
+   +10 	dc.b "lok","e"+$80,"I0,0",-1
+21E6+4 	dc.w 0,L_Pik
+   +8 	dc.b "pee","k"+$80,"00",-1
+21F2+4 	dc.w 0,L_Dik
+   +8 	dc.b "dee","k"+$80,"00",-1
+21FE+4 	dc.w 0,L_Lik
+   +8 	dc.b "lee","k"+$80,"00",-1
+220A+4 	dc.w CBset-Tk,Synt-Tk
+   +10 	dc.b "bse","t"+$80,"I0,0",-1
+2218+4 	dc.w CBclr-Tk,Synt-Tk
+   +10 	dc.b "bcl","r"+$80,"I0,0",-1
+2226+4 	dc.w CBchg-Tk,Synt-Tk
+   +10 	dc.b "bch","g"+$80,"I0,0",-1
+2234+4 	dc.w Synt-Tk,CBtst-Tk
+   +10 	dc.b "bts","t"+$80,"00,0",-1
+2242+4  	dc.w CRorb-Tk,Synt-Tk
+   +10 	dc.b "ror.","b"+$80,"I0,0",-1
+2250+4  	dc.w CRorw-Tk,Synt-Tk
+   +10 	dc.b "ror.","w"+$80,"I0,0",-1
+225E+4  	dc.w CRorl-Tk,Synt-Tk
+   +10 	dc.b "ror.","l"+$80,"I0,0",-1
+226C+4  	dc.w CRolb-Tk,Synt-Tk
+   +10 	dc.b "rol.","b"+$80,"I0,0",-1
+227A+4  	dc.w CRolw-Tk,Synt-Tk
+   +10 	dc.b "rol.","w"+$80,"I0,0",-1
+2288+4  	dc.w CRoll-Tk,Synt-Tk
+   +10 	dc.b "rol.","l"+$80,"I0,0",-1
+2296+4 	dc.w 0,L_IAReg
+   +8 	dc.b "are","g"+$80,"V00",-1
+22A2+4 	dc.w 0,L_IDReg
+   +8 	dc.b "dre","g"+$80,"V00",-1
+
+* Copper
+22AE+4 	dc.w 0,L_CopOn
+   +12 	dc.b "copper o","n"+$80,"I",-1
+22BE+4 	dc.w 0,L_CopOf
+   +12 	dc.b "copper of","f"+$80,"I",-1
+22CE+4 	dc.w 0,L_CopSwap
+   +10 	dc.b "cop swa","p"+$80,"I",-1
+22DC+4 	dc.w 0,L_CopReset
+   +12 	dc.b "cop rese","t"+$80,"I",-1
+22EC+4 	dc.w 0,L_CopW2
+   +14 	dc.b "!cop wai","t"+$80,"I0,0",-2
+22FE+4 	dc.w 0,L_CopW4
+   +10 	dc.b $80,"I0,0,0,0",-1
+230C+4 	dc.w 0,L_CopML
+   +14 	dc.b "cop move","l"+$80,"I0,0",-1
+231E+4 	dc.w 0,L_CopMW
+   +14 	dc.b "cop mov","e"+$80,"I0,0",-1
+2330+4 	dc.w 0,L_CopBase
+   +12 	dc.b "cop logi","c"+$80,"0",-1
+
+* Instructions programmes/accessoires
+2340+4 	dc.w 0,L_AccF
+   +14 	dc.b "prg first","$"+$80,"22",-1
+2352+4 	dc.w 0,L_DirN
+   +12 	dc.b "prg next","$"+$80,"2",-1
+2362+4 	dc.w 0,L_Psel1
+   +10 	dc.b "!psel","$"+$80,"22",-2
+2370+4 	dc.w 0,L_Psel2
+   +6 	dc.b $80,"22,2",-2
+237A+4 	dc.w 0,L_Psel3
+   +8 	dc.b $80,"22,2,2",-2
+2386+4 	dc.w 0,L_Psel4
+   +10 	dc.b $80,"22,2,2,2",-2
+2394+4 	dc.w 0,L_PRun
+   +8 	dc.b "pru","n"+$80,"I2",-1
+23A0+4 	dc.w 0,L_BGrab0
+   +8 	dc.b "bgra","b"+$80,"I0",-1
+
+* En dernier!
+23AC+4 	dc.w 0,L_Put
+   +8 	dc.b "pu","t"+$80,"I0,0",-1
+23B8+4 	dc.w 0,L_Get
+   +8 	dc.b "ge","t"+$80,"I0,0",-1
+23C4+4 	dc.w 0,L_System
+   +8 	dc.b "syste","m"+$80,"I",-1
+23D0+4 	dc.w 0,L_Multi
+   +12 	dc.b "multi wai","t"+$80,"I",-1
+23E0+4 	dc.w 0,L_IBb
+   +8 	dc.b "i bo","b"+$80,"00",-1
+23EC+4 	dc.w 0,L_ISp
+   +12 	dc.b "i sprit","e"+$80,"00",-1
+23FC+4 	dc.w 0,L_PrROn
+   +22 	dc.b "priority reverse o","n"+$80,"I",-1
+2416+4 	dc.w 0,L_PrROf
+   +22 	dc.b "priority reverse of","f"+$80,"I",-1
+2430+4 	dc.w 0,L_DevF
+   +14 	dc.b "dev first","$"+$80,"22",-1
+2442+4 	dc.w 0,L_DirN
+   +12 	dc.b "dev next","$"+$80,"2",-1
+2452+4 	dc.w 0,L_HRev
+   +14 	dc.b "hrev bloc","k"+$80,"I0",-1
+2464+4 	dc.w 0,L_VRev
+   +14 	dc.b "vrev bloc","k"+$80,"I0",-1
+2476+4 	dc.w 0,L_RevX
+   +8 	dc.b "hre","v"+$80,"00",-1
+2482+4 	dc.w 0,L_RevY
+   +8 	dc.b "vre","v"+$80,"00",-1
+248E+4 	dc.w 0,L_Rev
+   +6 	dc.b "re","v"+$80,"00",-1
+2498+4 	dc.w 0,L_BSwap
+   +14 	dc.b "bank swa","p"+$80,"I0,0",-1
+24AA+4 	dc.w 0,L_AmFront
+   +16 	dc.b "amos to fron","t"+$80,"I",-1
+24BE+4 	dc.w 0,L_AmBack
+   +14 	dc.b "amos to bac","k"+$80,"I",-1
+24D0+4 	dc.w 0,L_AmHere
+   +12 	dc.b "amos her","e"+$80,"0",-1
+24E0+4 	dc.w 0,L_AmLock
+   +12 	dc.b "amos loc","k"+$80,"I",-1
+24F0+4 	dc.w 0,L_AmULock
+   +14 	dc.b "amos unloc","k"+$80,"I",-1
+2502+4 	dc.w 0,L_DispH
+   +16 	dc.b "display heigh","t"+$80,"0",-1
+2516+4 	dc.w 0,L_Ntsc
+   +6 	dc.b "nts","c"+$80,"0",-1
+2520+4 	dc.w 0,L_Laced
+   +8 	dc.b "lace","d"+$80,"0",-1
+252C+4 	dc.w 0,L_PrgState
+   +12 	dc.b "prg stat","e"+$80,"0",-1
+253C+4 	dc.w 0,L_ICom
+   +16 	dc.b "command line","$"+$80,"V2",-1
+2550+4 	dc.w 0,L_DInfo
+   +14 	dc.b "disc info","$"+$80,"22",-1
